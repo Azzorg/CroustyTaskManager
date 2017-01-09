@@ -18,7 +18,7 @@ public class Serveur
 		{
 			ServerSocket listener = new ServerSocket(serveur.PORT);
 			System.out.println("Attente du client");
-			Socket aClient = listener.accept();	
+			Socket aClient = listener.accept();	//Attente du client
 			System.out.println("Client" + aClient.getLocalPort() + "accepté");
 			// La connexion est établie
 			InputStream in = aClient.getInputStream();

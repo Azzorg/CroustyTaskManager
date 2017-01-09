@@ -15,12 +15,12 @@ public class Client {
 	public static void main(String []args){
 		Client client = new Client();
 		
-		//Try
 		try{
 			Socket aClient = new Socket("toto", client.PORT);
 			InputStream in = aClient.getInputStream();
 			OutputStream out = aClient.getOutputStream();
-			out.write(42);;
+			//ecrire un octet
+			out.write(42);
 			PrintStream pout = new PrintStream(out);
 			pout.println("Hello!");
 			//Byte back = (byte) in.read();
