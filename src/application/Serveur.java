@@ -16,13 +16,15 @@ public class Serveur
 	public static void main (String[] Args)
 	{
 		Serveur serveur = new Serveur();
-		ServerSocket listener = null;
+		ServerSocket welcomeSocket = null;
 		try
 		{
-			listener = new ServerSocket(serveur.PORT);
+			welcomeSocket = new ServerSocket(serveur.PORT);
 			while(true){
 				System.out.println("Attente du client...");
-				Socket aClient = listener.accept();	//Attente du client
+				Socket aClient = welcomeSocket.accept();	//Attente du client
+				
+				
 				System.out.println("Client" + aClient.getLocalPort() + "accepté");
 				// La connexion est établie
 				InputStream in = aClient.getInputStream();
@@ -41,7 +43,7 @@ public class Serveur
 		}
 		finally{
 			try{
-				listener.close();
+				welcomeSocket.close();
 			}
 			catch(Exception e){
 				System.out.println(e);
