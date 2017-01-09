@@ -9,19 +9,27 @@ import java.net.Socket;
 
 public class Serveur 
 {
-	public void main (String[] Args)
+	final public int PORT = 1501;
+	
+	public static void main (String[] Args)
 	{
-	try
-	{
-		ServerSocket listener = new ServerSocket(1500);
-		Socket aClient = listener.accept();	
-		// La connexion est établie
-		InputStream in = aClient.getInputStream();
-		BufferedReader din = new BufferedReader(new InputStreamReader (in));
-		System.out.println(din.read());
-		listener.close();
-	}
-	catch (IOException e){}
+		Serveur serveur = new Serveur();
+		try
+		{
+			ServerSocket listener = new ServerSocket(serveur.PORT);
+			System.out.println("Attente du client");
+			Socket aClient = listener.accept();	
+			System.out.println("Client" + aClient.getLocalPort() + "accepté");
+			// La connexion est établie
+			InputStream in = aClient.getInputStream();
+			BufferedReader din = new BufferedReader(new InputStreamReader (in));
+			System.out.println(din.read());
+			listener.close();
+		}
+		catch (IOException e){
+			System.out.println("Error connexion");
+			e.printStackTrace();
+		}
 	}
 
 }

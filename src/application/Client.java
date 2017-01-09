@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client {
-	final public int PORT = 1500;
+	final public int PORT = 1501;
 	
 	public static void main(String []args){
 		Client client = new Client();
@@ -23,9 +23,10 @@ public class Client {
 			out.write(42);;
 			PrintStream pout = new PrintStream(out);
 			pout.println("Hello!");
-			Byte back = (byte) in.read();
+			//Byte back = (byte) in.read();
 			BufferedReader din = new BufferedReader(new InputStreamReader(in));
 			String response = din.readLine();
+			System.out.println(response);
 			aClient.close();
 		}
 		catch(UnknownHostException e){
