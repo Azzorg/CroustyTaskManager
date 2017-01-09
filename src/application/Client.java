@@ -15,7 +15,7 @@ public class Client {
 	public static void main(String []args){
 		Client client = new Client();
 		
-		
+		//Try
 		try{
 			Socket aClient = new Socket("toto", client.PORT);
 			InputStream in = aClient.getInputStream();
