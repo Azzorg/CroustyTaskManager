@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -22,8 +24,13 @@ public class Serveur
 			System.out.println("Client" + aClient.getLocalPort() + "accepté");
 			// La connexion est établie
 			InputStream in = aClient.getInputStream();
+			OutputStream out = aClient.getOutputStream();
 			BufferedReader din = new BufferedReader(new InputStreamReader (in));
-			System.out.println(din.read());
+			System.out.println(din.readLine());
+			out.write(43);
+			PrintStream pout = new PrintStream(out);
+			pout.println("Goodbye");
+			aClient.close();
 			listener.close();
 		}
 		catch (IOException e){

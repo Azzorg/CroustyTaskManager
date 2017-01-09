@@ -16,15 +16,20 @@ public class Client {
 		Client client = new Client();
 		
 		try{
-			Socket aClient = new Socket("toto", client.PORT);
+			Socket aClient = new Socket("localhost", client.PORT);
+			System.out.println("création du client");
 			InputStream in = aClient.getInputStream();
 			OutputStream out = aClient.getOutputStream();
 			//ecrire un octet
+			System.out.println("ecriture d'un octet");
 			out.write(42);
+			System.out.println("L'octet est ecrit");
 			PrintStream pout = new PrintStream(out);
 			pout.println("Hello!");
 			//Byte back = (byte) in.read();
+			System.out.println("début buffer reader");
 			BufferedReader din = new BufferedReader(new InputStreamReader(in));
+			System.out.println("fin buffer reader");
 			String response = din.readLine();
 			System.out.println(response);
 			aClient.close();
