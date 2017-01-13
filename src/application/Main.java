@@ -20,6 +20,7 @@ public class Main extends Application {
 			scene.setRoot(accueil);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.setTitle("CTM");
 			primaryStage.show();
 		} catch(Exception e) {
