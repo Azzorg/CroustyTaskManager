@@ -17,7 +17,7 @@ public class ActiviteServeur extends Thread {
 		System.out.println("Constructeur activité serveur");
 	}
 
-	public void Run() {
+	public void run() {
 		System.out.println("Nouveau client");
 		try {
 			System.out.println("Client" + clientSocket.getLocalPort() + "accepté");

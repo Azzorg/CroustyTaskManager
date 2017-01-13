@@ -12,7 +12,6 @@ public class Serveur
 	{
 		Serveur serveur = new Serveur();
 		ServerSocket welcomeSocket = null;
-		ActiviteServeur thread;
 		
 		try
 		{
@@ -21,8 +20,7 @@ public class Serveur
 				System.out.println("Attente du client...");
 				Socket aClient = welcomeSocket.accept();	//Attente du client
 				
-				thread = new ActiviteServeur("act", aClient);
-				thread.start();
+				new ActiviteServeur("act", aClient).start();
 			}
 		}
 		catch (IOException e){

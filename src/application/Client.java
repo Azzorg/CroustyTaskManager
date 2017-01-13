@@ -30,6 +30,7 @@ public class Client {
 			System.out.println("début buffer reader");
 			BufferedReader din = new BufferedReader(new InputStreamReader(in));
 			System.out.println("fin buffer reader");
+			
 			String response = din.readLine();
 			System.out.println(response);
 			aClient.close();
