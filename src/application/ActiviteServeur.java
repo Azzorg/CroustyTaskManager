@@ -1,11 +1,8 @@
 package application;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 
 public class ActiviteServeur extends Thread {
@@ -20,16 +17,20 @@ public class ActiviteServeur extends Thread {
 	public void run() {
 		System.out.println("Nouveau client");
 		try {
-			System.out.println("Client" + clientSocket.getLocalPort() + "accepté");
+			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
 			// La connexion est établie
-			InputStream in = clientSocket.getInputStream();
 			OutputStream out = clientSocket.getOutputStream();
-			BufferedReader din = new BufferedReader(new InputStreamReader(in));
-			System.out.println(din.readLine());
-			out.write(43);
-			PrintStream pout = new PrintStream(out);
-			pout.println("Goodbye");
 
+			// Creation d'un tache
+			Tache t1 = new Tache("Faire les courses", 1, new Personne("Roger", 12), new Personne("Marcel", 30),
+					"Liste : \n\t-pain\n\t-lait\n\t-lardon");
+
+			// Envoi de l'objet tache
+			ObjectOutputStream obj = new ObjectOutputStream(out);
+			obj.writeObject(t1);
+			obj.flush();
+
+			//Fermeture socket
 			clientSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

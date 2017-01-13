@@ -1,11 +1,8 @@
 package application;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -17,22 +14,19 @@ public class Client {
 		
 		try{
 			Socket aClient = new Socket("localhost", client.PORT);
-			System.out.println("création du client");
 			InputStream in = aClient.getInputStream();
-			OutputStream out = aClient.getOutputStream();
-			//ecrire un octet
-			System.out.println("ecriture d'un octet");
-			out.write(42);
-			System.out.println("L'octet est ecrit");
-			PrintStream pout = new PrintStream(out);
-			pout.println("Hello!");
-			//Byte back = (byte) in.read();
-			System.out.println("début buffer reader");
-			BufferedReader din = new BufferedReader(new InputStreamReader(in));
-			System.out.println("fin buffer reader");
 			
-			String response = din.readLine();
-			System.out.println(response);
+			//Réception tache
+			ObjectInputStream obj = new ObjectInputStream(in);
+			
+			Tache t1 = (Tache)obj.readObject();
+			
+			//Affichage de la tache
+			System.out.println("Nom de la tâche : " + t1.getNom());
+			System.out.println("Personne créateur : " + t1.getCreateur().getNom());
+			System.out.println("Personne affectée : " + t1.getAffecte().getNom());
+			System.out.println("Descriptif de la tâche : \n" + t1.getDescriptif());
+			
 			aClient.close();
 		}
 		catch(UnknownHostException e){
@@ -40,6 +34,9 @@ public class Client {
 		}
 		catch(IOException e){
 			System.out.println("Error connecting to host");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
