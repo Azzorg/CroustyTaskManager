@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Personne implements Serializable{
 	private int idPersonne;
-	private String nom;
+	private String nomPersonne;
+	private String passWord;
 	
 	/**
 	 * Constructeur Personne
@@ -12,7 +13,7 @@ public class Personne implements Serializable{
 	 * @param id : idPersonne
 	 */
 	public Personne(String n, int id){
-		setNom(n);
+		setNomPersonne(n);
 		setIdPersonne(id);
 	}
 	
@@ -36,16 +37,32 @@ public class Personne implements Serializable{
 	 * Getter nom
 	 * @return
 	 */
-	public String getNom() {
-		return nom;
+	public String getNomPersonne() {
+		return nomPersonne;
 	}
 	
 	/**
 	 * Setter nom
 	 * @param nom
 	 */
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomPersonne(String nom) {
+		this.nomPersonne = nom;
+	}
+
+	/**
+	 * Getter passWord
+	 * @return
+	 */
+	public String getPassWord() {
+		return passWord;
+	}
+
+	/**
+	 * Setter passWord
+	 * @param passWord
+	 */
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	
 	

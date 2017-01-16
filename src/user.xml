@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+	<user>
+		<idUser>1</idUser>
+		<nomUser>Michel</nomUser>
+		<passWord>licorne</passWord>
+	</user>
+	<user>
+		<idUser>2</idUser>
+		<nomUser>Roger</nomUser>
+		<passWord>ordi</passWord>
+	</user>
+	<user>
+		<idUser>3</idUser>
+		<nomUser>Martine</nomUser>
+		<passWord>tune</passWord>
+	</user>
+</root>
+

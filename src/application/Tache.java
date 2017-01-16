@@ -3,14 +3,14 @@ package application;
 import java.io.Serializable;
 
 public class Tache implements Serializable{
-	private String nom;
+	private String nomTache;
 	private int idTache;
 	private Personne createur;
 	private Personne affecte;
 	private String descriptif;
 	
 	public Tache(String nom, int id, Personne createur, Personne affecte, String des){
-		setNom(nom);
+		setNomTache(nom);
 		setIdTache(id);
 		setCreateur(createur);
 		setAffecte(affecte);
@@ -53,16 +53,16 @@ public class Tache implements Serializable{
 	 * Getter nom de la tache
 	 * @return
 	 */
-	public String getNom() {
-		return nom;
+	public String getNomTache() {
+		return nomTache;
 	}
 
 	/**
 	 * Setter nom de la tache
 	 * @param nom
 	 */
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomTache(String nom) {
+		this.nomTache = nom;
 	}
 
 	/**

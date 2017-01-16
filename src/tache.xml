@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+	<!-- Tâche 1 -->
+	<Tache>
+		<idTache> 1 </idTache>
+		<nomTache> Faire les courses </nomTache>
+		<createur> </createur>
+	</Tache>
+</root>

@@ -22,9 +22,9 @@ public class Client {
 			Tache t1 = (Tache)obj.readObject();
 			
 			//Affichage de la tache
-			System.out.println("Nom de la tâche : " + t1.getNom());
-			System.out.println("Personne créateur : " + t1.getCreateur().getNom());
-			System.out.println("Personne affectée : " + t1.getAffecte().getNom());
+			System.out.println("Nom de la tâche : " + t1.getNomTache());
+			System.out.println("Personne créateur : " + t1.getCreateur().getNomPersonne());
+			System.out.println("Personne affectée : " + t1.getAffecte().getNomPersonne());
 			System.out.println("Descriptif de la tâche : \n" + t1.getDescriptif());
 			
 			aClient.close();
