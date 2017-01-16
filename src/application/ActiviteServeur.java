@@ -17,6 +17,7 @@ public class ActiviteServeur extends Thread {
 	public void run() {
 		System.out.println("Nouveau client");
 		try {
+			Thread.sleep(1000);
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
 			// La connexion est établie
 			OutputStream out = clientSocket.getOutputStream();
@@ -32,7 +33,7 @@ public class ActiviteServeur extends Thread {
 
 			//Fermeture socket
 			clientSocket.close();
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
