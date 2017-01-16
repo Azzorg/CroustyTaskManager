@@ -15,7 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane accueil = (GridPane) FXMLLoader.load(Main.class.getResource("../Interface/accueil.fxml"));
+			GridPane accueil = (GridPane) FXMLLoader.load(Main.class.getResource("../Interface/login.fxml"));
 			Scene scene = new Scene(accueil);
 			scene.setRoot(accueil);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
