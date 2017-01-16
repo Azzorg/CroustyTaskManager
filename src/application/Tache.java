@@ -3,6 +3,7 @@ package application;
 import java.io.Serializable;
 
 public class Tache implements Serializable{
+	
 	private String nomTache;
 	private int idTache;
 	private Personne createur;

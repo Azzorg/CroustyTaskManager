@@ -17,6 +17,12 @@ public class Personne implements Serializable{
 		setIdPersonne(id);
 	}
 	
+	public Personne(){
+		idPersonne = -1;
+		nomPersonne = "";
+		passWord = "";
+	}
+	
 	/**
 	 * Getter idPersonne
 	 * @return
