@@ -8,8 +8,8 @@ public class Personne implements Serializable{
 	private String passWord;
 	
 	/**
-	 * Constructeur Personne
-	 * @param n : nom
+	 * Constructeur Personne, seul le nom et l'id
+	 * @param n : nomPersonne
 	 * @param id : idPersonne
 	 */
 	public Personne(String n, int id){
@@ -17,10 +17,22 @@ public class Personne implements Serializable{
 		setIdPersonne(id);
 	}
 	
+	/**
+	 * Constructeur de Personne avec tous les champs remplis
+	 * @param id : idPersonne
+	 * @param n : nomPersonne
+	 * @param p : passWord
+	 */
+	public Personne(int id, String n, String p){
+		this(n,id);
+		setPassWord(p);
+	}
+	
+	/**
+	 * Constructeur personne vide
+	 */
 	public Personne(){
-		idPersonne = -1;
-		nomPersonne = "";
-		passWord = "";
+		this(-1, "", "");
 	}
 	
 	/**

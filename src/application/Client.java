@@ -1,6 +1,12 @@
 package application;
 
 import java.io.EOFException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import sun.security.jca.GetInstance;
+import sun.security.provider.MD5;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -35,6 +41,19 @@ public class Client {
 				userObj = new ObjectInputStream(in);
 			}
 			
+			String original = "troll";
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(original.getBytes());
+			byte[] digest = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (byte b : digest) {
+				sb.append(String.format("%02x", b & 0xff));
+			}
+			
+			Personne p = new Personne(4,"René", sb.toString());
+			
+			
+			
 			//Réception tache
 			/*
 			ObjectInputStream obj = new ObjectInputStream(in);
@@ -60,6 +79,9 @@ public class Client {
 		catch(IOException e){
 			System.out.println("Error connecting to host : " + e);
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
