@@ -10,6 +10,8 @@ import sun.security.provider.MD5;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -23,6 +25,7 @@ public class Client {
 		try{
 			aClient = new Socket("localhost", client.PORT);
 			InputStream in = aClient.getInputStream();
+			OutputStream out = aClient.getOutputStream();
 			Personne user;
 			
 			//Réception de tous les users
@@ -34,7 +37,9 @@ public class Client {
 			
 			//userObj.mark(1000);
 			
-			while((user = (Personne)userObj.readObject()) != null){
+			
+			//https://coderanch.com/t/277986/java/detect-file voir ce site
+			while(((user = (Personne)userObj.readObject()) != null) && (user != null)){
 				System.out.println("Id de la personne : " + user.getIdPersonne());
 				System.out.println("Nom de la personne : " + user.getNomPersonne());
 				
@@ -51,6 +56,10 @@ public class Client {
 			}
 			
 			Personne p = new Personne(4,"René", sb.toString());
+			
+			ObjectOutputStream userTosend = new ObjectOutputStream(out);
+			userTosend.writeObject(p);
+			userTosend.flush();
 			
 			
 			
@@ -74,7 +83,7 @@ public class Client {
 			System.out.println("Can't find host");
 		}
 		catch(EOFException e){
-			//C'est normal
+			System.out.println("entre dans cette exception : " + e);
 		}
 		catch(IOException e){
 			System.out.println("Error connecting to host : " + e);

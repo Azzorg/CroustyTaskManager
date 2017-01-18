@@ -50,6 +50,8 @@ public class ActiviteServeur extends Thread {
 				userObj.flush();
 				i++;
 			}
+			
+			
 
 			// Creation d'un tache
 			/*
