@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -42,6 +44,22 @@ public class ActiviteServeur extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	public Personne ReceiveNewUser(InputStream in){
+		Personne user = null;
+		ObjectInputStream userObj;
+		try {
+			userObj = new ObjectInputStream(in);
+			user = (Personne)userObj.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
+	}
 
 	/**
 	 * Run method
@@ -53,6 +71,7 @@ public class ActiviteServeur extends Thread {
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
 			// La connexion est établie
 			OutputStream out = clientSocket.getOutputStream();
+			InputStream in = clientSocket.getInputStream();
 
 			// Parser user.xml
 			System.out.println("Début parser user");
@@ -68,6 +87,13 @@ public class ActiviteServeur extends Thread {
 			
 			//Send the user list
 			SendUserList(listUser, out);
+			
+			//Receive a new user
+			Personne user = ReceiveNewUser(in);
+			
+			System.out.println("Id personne : " + user.getIdPersonne());
+			System.out.println("Nom personne : " + user.getNomPersonne());
+			System.out.println("Mot de passe : " + user.getPassWord());
 
 			// Creation d'un tache
 			/*
