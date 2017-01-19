@@ -38,6 +38,11 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * To send a user to the server
+	 * @param p : Personne
+	 * @param out : OutputStream
+	 */
 	public void SendUser(Personne p, OutputStream out){
 		try{
 			ObjectOutputStream userTosend = new ObjectOutputStream(out);
@@ -50,7 +55,30 @@ public class Client {
 		
 	}
 	
-	
+	/**
+	 * MD5 cryptography
+	 * @param original String
+	 * @return String
+	 */
+	public String md5(String original){
+		String secret = "";
+		
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(original.getBytes());
+			byte[] digest = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (byte b : digest) {
+				sb.append(String.format("%02x", b & 0xff));
+			}
+			secret = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return secret;
+	}
 
 	public static void main(String[] args) {
 		Client client = new Client();
@@ -69,16 +97,7 @@ public class Client {
 				System.out.println("Nom de la personne : " + user.getNomPersonne());
 			}
 
-			String original = "troll";
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(original.getBytes());
-			byte[] digest = md.digest();
-			StringBuffer sb = new StringBuffer();
-			for (byte b : digest) {
-				sb.append(String.format("%02x", b & 0xff));
-			}
-
-			Personne p = new Personne(4, "René", sb.toString());
+			Personne p = new Personne(4, "René", client.md5("troll"));
 
 			System.out.println("Envoi coordonnées nouveau user");
 			client.SendUser(p, out);
@@ -106,9 +125,6 @@ public class Client {
 			System.out.println("entre dans cette exception : " + e);
 		} catch (IOException e) {
 			System.out.println("Error connecting to host : " + e);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} finally {
 			try {
 				aClient.close();
