@@ -37,6 +37,20 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
+	public void SendUser(Personne p, OutputStream out){
+		try{
+			ObjectOutputStream userTosend = new ObjectOutputStream(out);
+			userTosend.writeObject(p);
+			userTosend.flush();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 
 	public static void main(String[] args) {
 		Client client = new Client();
@@ -67,9 +81,7 @@ public class Client {
 			Personne p = new Personne(4, "René", sb.toString());
 
 			System.out.println("Envoi coordonnées nouveau user");
-			ObjectOutputStream userTosend = new ObjectOutputStream(out);
-			userTosend.writeObject(p);
-			userTosend.flush();
+			client.SendUser(p, out);
 
 			// Réception tache
 			/*
