@@ -24,6 +24,7 @@ public class Client {
 	 * @param in
 	 *            : InputStream
 	 */ 
+	@SuppressWarnings("unchecked")
 	public void ReceiveUserList(InputStream in) {
 		try {
 			ObjectInputStream userObj = new ObjectInputStream(in);
