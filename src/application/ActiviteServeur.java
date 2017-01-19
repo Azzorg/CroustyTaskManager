@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 
@@ -20,37 +19,43 @@ public class ActiviteServeur extends Thread {
 
 	/**
 	 * Constuctor of ActiviteServeur with 2 params
-	 * @param n : String : Name of the Thread
-	 * @param s : Socket
+	 * 
+	 * @param n
+	 *            : String : Name of the Thread
+	 * @param s
+	 *            : Socket
 	 */
 	public ActiviteServeur(String n, Socket s) {
 		super(n);
 		clientSocket = s;
 		System.out.println("Constructeur activité serveur");
 	}
-	
+
 	/**
 	 * Send the user list to the client
-	 * @param listUser : List<Personne>
-	 * @param out : OutputStream 
+	 * 
+	 * @param listUser
+	 *            : List<Personne>
+	 * @param out
+	 *            : OutputStream
 	 */
-	public void SendUserList(List<Personne> listUser, OutputStream out){
-		try {			
+	public void SendUserList(List<Personne> listUser, OutputStream out) {
+		try {
 			ObjectOutputStream userObj = new ObjectOutputStream(out);
 			userObj.writeObject(listUser);
-			userObj.flush();	
+			userObj.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public Personne ReceiveNewUser(InputStream in){
+
+	public Personne ReceiveNewUser(InputStream in) {
 		Personne user = null;
 		ObjectInputStream userObj;
 		try {
 			userObj = new ObjectInputStream(in);
-			user = (Personne)userObj.readObject();
+			user = (Personne) userObj.readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,13 +89,13 @@ public class ActiviteServeur extends Thread {
 			sax.parse("src/user.xml", handlerSAX);
 
 			List<Personne> listUser = handlerSAX.getListUser();
-			
-			//Send the user list
+
+			// Send the user list
 			SendUserList(listUser, out);
-			
-			//Receive a new user
+
+			// Receive a new user
 			Personne user = ReceiveNewUser(in);
-			
+
 			System.out.println("Id personne : " + user.getIdPersonne());
 			System.out.println("Nom personne : " + user.getNomPersonne());
 			System.out.println("Mot de passe : " + user.getPassWord());
