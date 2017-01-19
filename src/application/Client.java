@@ -23,7 +23,7 @@ public class Client {
 	 * 
 	 * @param in
 	 *            : InputStream
-	 */
+	 */ 
 	public void ReceiveUserList(InputStream in) {
 		try {
 			ObjectInputStream userObj = new ObjectInputStream(in);

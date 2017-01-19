@@ -83,7 +83,7 @@ public class ActiviteServeur extends Thread {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			SAXParser sax = factory.newSAXParser();
-
+ 
 			ParserUser handlerSAX = new ParserUser();
 
 			sax.parse("src/user.xml", handlerSAX);

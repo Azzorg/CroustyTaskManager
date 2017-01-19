@@ -21,7 +21,7 @@ public class Serveur {
 			}
 		} catch (IOException e) {
 			System.out.println("Error connexion");
-			e.printStackTrace();
+			e.printStackTrace(); 
 		} finally {
 			try {
 				welcomeSocket.close();
