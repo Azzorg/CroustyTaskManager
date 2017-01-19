@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 
@@ -15,16 +16,39 @@ import org.xml.sax.SAXException;
 public class ActiviteServeur extends Thread {
 	Socket clientSocket;
 
+	/**
+	 * Constuctor of ActiviteServeur with 2 params
+	 * @param n : String : Name of the Thread
+	 * @param s : Socket
+	 */
 	public ActiviteServeur(String n, Socket s) {
 		super(n);
 		clientSocket = s;
 		System.out.println("Constructeur activité serveur");
 	}
+	
+	/**
+	 * Send the user list to the client
+	 * @param listUser : List<Personne>
+	 * @param out : OutputStream 
+	 */
+	public void SendUserList(List<Personne> listUser, OutputStream out){
+		try {			
+			ObjectOutputStream userObj = new ObjectOutputStream(out);
+			userObj.writeObject(listUser);
+			userObj.flush();	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	/**
+	 * Run method
+	 */
 	public void run() {
 		System.out.println("Nouveau client");
 		try {
-			int i =0;
 			Thread.sleep(1000);
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
 			// La connexion est établie
@@ -41,17 +65,9 @@ public class ActiviteServeur extends Thread {
 			sax.parse("src/user.xml", handlerSAX);
 
 			List<Personne> listUser = handlerSAX.getListUser();
-
-			// Envoi de tous les users lu dans le fichier xml
-			for (Personne user : listUser) {
-				System.out.println("Envoie du user : " + user.getIdPersonne());
-				ObjectOutputStream userObj = new ObjectOutputStream(out);
-				userObj.writeObject(user);
-				userObj.flush();
-				i++;
-			}
 			
-			
+			//Send the user list
+			SendUserList(listUser, out);
 
 			// Creation d'un tache
 			/*
