@@ -26,6 +26,12 @@ public class Controller {
 	private Button valid;
 	@FXML
 	private VBox vb1; 
+	@FXML
+	private Button register; 
+	@FXML
+	private Button register_page; 
+	@FXML
+	private Button log_out; 
 	
 	@FXML 
 	private TextField task_name;
@@ -78,6 +84,46 @@ public class Controller {
 		     System.out.println(task_Content + "\n");
 	     }
 	     
+	     if (event.getSource() == register)
+	     {
+	    	 Stage stage = null; 
+		     Parent root = null;
+		     stage=(Stage) register.getScene().getWindow();
+			 root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
+			 Scene scene = new Scene(root);
+		     stage.setScene(scene);
+		     stage.show();
+	     }
+	     if (event.getSource() == register_page)
+	     {
+	    	 Stage stage = null; 
+		     Parent root = null;
+		     stage=(Stage) register_page.getScene().getWindow();
+			 root = FXMLLoader.load(getClass().getResource("../Interface/register.fxml"));
+			 Scene scene = new Scene(root);
+		     stage.setScene(scene);
+		     stage.show();
+	     }
+	     if (event.getSource() == register_page)
+	     {
+	    	 Stage stage = null; 
+		     Parent root = null;
+		     stage=(Stage) register_page.getScene().getWindow();
+			 root = FXMLLoader.load(getClass().getResource("../Interface/register.fxml"));
+			 Scene scene = new Scene(root);
+		     stage.setScene(scene);
+		     stage.show();
+	     }
+	     if (event.getSource() == log_out)
+	     {
+	    	 Stage stage = null; 
+		     Parent root = null;
+		     stage=(Stage) log_out.getScene().getWindow();
+			 root = FXMLLoader.load(getClass().getResource("../Interface/login.fxml"));
+			 Scene scene = new Scene(root);
+		     stage.setScene(scene);
+		     stage.show();
+	     }
 
 	 }
 }

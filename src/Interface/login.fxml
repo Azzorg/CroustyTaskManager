@@ -18,9 +18,9 @@
    <rowConstraints>
       <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="244.0" minHeight="6.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="244.0" minHeight="6.0" prefHeight="97.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Button fx:id="btn1" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="69.0" prefWidth="242.0" text="CONNECT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -35,5 +35,6 @@
             <Font size="47.0" />
          </font>
       </Label>
+      <Button fx:id="register_page" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="69.0" prefWidth="242.0" text="REGISTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
    </children>
 </GridPane>
