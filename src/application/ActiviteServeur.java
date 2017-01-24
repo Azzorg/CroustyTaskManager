@@ -1,10 +1,13 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 
@@ -16,6 +19,9 @@ import org.xml.sax.SAXException;
 
 public class ActiviteServeur extends Thread {
 	Socket clientSocket;
+	private enum Connexion{
+		NEW, NOTNEW;
+	}
 
 	/**
 	 * Constuctor of ActiviteServeur with 2 params
@@ -28,7 +34,6 @@ public class ActiviteServeur extends Thread {
 	public ActiviteServeur(String n, Socket s) {
 		super(n);
 		clientSocket = s;
-		System.out.println("Constructeur activité serveur");
 	}
 
 	/**
@@ -50,6 +55,12 @@ public class ActiviteServeur extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param in
+	 *            : InputStream
+	 * @return
+	 */
 	public Personne ReceiveNewUser(InputStream in) {
 		Personne user = null;
 		ObjectInputStream userObj;
@@ -70,31 +81,80 @@ public class ActiviteServeur extends Thread {
 	 * Run method
 	 */
 	public void run() {
+		Connexion connexion;
+		boolean goOn = false;
 		System.out.println("Nouveau client");
 		try {
 			Thread.sleep(1000);
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
-			// La connexion est établie
-			OutputStream out = clientSocket.getOutputStream();
-			InputStream in = clientSocket.getInputStream();
-
-			// Parser user.xml
-			System.out.println("Début parser user");
+			
+			//Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			SAXParser sax = factory.newSAXParser();
- 
+
 			ParserUser handlerSAX = new ParserUser();
-
 			sax.parse("src/user.xml", handlerSAX);
+			
+			// La connexion est établie
+			OutputStream output = clientSocket.getOutputStream();
+			InputStream input = clientSocket.getInputStream();
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			PrintStream out = new PrintStream(output);
+			
+			while(!goOn){
+				//Attente des instructions de connection
+				while(!in.readLine().equals("CONNEXION")){
+					System.out.println("Attente du client " + clientSocket.getLocalAddress());
+				}
+				connexion = Connexion.valueOf(in.readLine());
+				String nom = in.readLine();
+				String pass = in.readLine();
+				
+				//Options en fonction du type de connexion
+				switch(connexion){
+				
+				//Création d'un nouveau compte
+				case NEW:
+					
+					//Vérification si le nom existe déjà dans le document XML des users
+					if(handlerSAX.nameExist(nom))
+						out.println("CONNEXION\nNOTOK");
+					else{
+						//Ecriture dans le document XML
+						out.println("CONNEXION\nOK");
+						goOn = true;
+					}
+					break;
+					
+				//Connexion avec un compte déjà existant
+				case NOTNEW:
+					//Vérification que le nom correspond au mot de passe envoyé
+					if(handlerSAX.correspondanceNamePassword(nom, pass)){
+						System.out.println("ok");
+						out.println("CONNEXION\nOK");
+						goOn = true;
+					}
+					else
+						out.println("CONNEXION\nNOTOK");
+						
+					break;
+				default:
+					System.out.println("Erreur du message de connexion");
+					break;
+				}
+			}
+			
+			goOn = false;
 
+			// Récupération de tous les users dans le 
 			List<Personne> listUser = handlerSAX.getListUser();
 
 			// Send the user list
-			SendUserList(listUser, out);
+			SendUserList(listUser, output);
 
 			// Receive a new user
-			Personne user = ReceiveNewUser(in);
+			Personne user = ReceiveNewUser(input);
 
 			System.out.println("Id personne : " + user.getIdPersonne());
 			System.out.println("Nom personne : " + user.getNomPersonne());
@@ -107,7 +167,7 @@ public class ActiviteServeur extends Thread {
 			 * "Liste : \n\t-pain\n\t-lait\n\t-lardon");
 			 * 
 			 * // Envoi de l'objet tache ObjectOutputStream obj = new
-			 * ObjectOutputStream(out); obj.writeObject(t1); obj.flush();
+			 * ObjectOutputStream(output); obj.writeObject(t1); obj.flush();
 			 */
 
 			// Fermeture socket

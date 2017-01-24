@@ -15,9 +15,29 @@ public class ParserUser extends DefaultHandler {
 	private Personne user;
 	private boolean isIdUser = false;
 	private boolean isNomUser = false;
+	private boolean isPassword = false;
 
 	public List<Personne> getListUser() {
 		return listUser;
+	}
+	
+	public boolean nameExist(String nom){
+		List<Personne> list = getListUser();
+		for(Personne p : list){
+			if(p.getNomPersonne().equals(nom))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean correspondanceNamePassword(String name, String pass){
+		
+		List<Personne> list = getListUser();
+		for(Personne p : list){
+			if(p.getNomPersonne().equals(name) && p.getPassWord().equals(pass))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -30,6 +50,9 @@ public class ParserUser extends DefaultHandler {
 
 		if (localName.equals("nomUser"))
 			isNomUser = true;
+		
+		if (localName.equals("passWord"))
+			isPassword = true;
 	}
 
 	@Override
@@ -42,6 +65,9 @@ public class ParserUser extends DefaultHandler {
 
 		if (localName.equals("nomUser"))
 			isNomUser = false;
+		
+		if (localName.equals("passWord"))
+			isPassword = false;
 	}
 
 	@Override
@@ -56,5 +82,8 @@ public class ParserUser extends DefaultHandler {
 		
 		if(isNomUser)
 			user.setNomPersonne(s);
+		
+		if(isPassword)
+		user.setPassWord(s);
 	}
 }
