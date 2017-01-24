@@ -27,6 +27,10 @@ public class Controller {
 	@FXML
 	private VBox vb1; 
 	@FXML
+	private VBox todo_task; 
+	@FXML
+	private VBox assigned_task; 
+	@FXML
 	private Button register; 
 	@FXML
 	private Button register_page; 
@@ -44,6 +48,31 @@ public class Controller {
 	private String task_Content = null;
 	
 	@FXML
+	protected void initialize() {
+		if(vb1 != null)
+		{
+			for(int i=0 ; i<50 ; i++)
+			{
+				Button user = new Button("Utilisateur "+(i+1));
+				user.setMaxWidth(Double.MAX_VALUE);
+				user.setMaxHeight(Double.MAX_VALUE);
+				user.setId("user"+(i+1));
+				user.addEventHandler(ActionEvent.ACTION, event -> {
+					assigned_task.getChildren().clear();
+					todo_task.getChildren().clear();
+					for(int j=0;j< 1 + (int)(Math.random() * 1000) ; j++)
+						assigned_task.getChildren().add(new Button("assigned task" +j));
+					
+					for(int j=0;j< 1 + (int)(Math.random() * 1000) ; j++)
+						todo_task.getChildren().add(new Button(" to dotask" +j));
+			    });
+				vb1.getChildren().add(user);
+			}
+		}
+		
+	}
+	
+	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException {
 	     
 	     
@@ -56,7 +85,7 @@ public class Controller {
 			 Scene scene = new Scene(root);
 		     stage.setScene(scene);
 		     stage.show();
-
+		     System.out.println("je suis la");
 	     }
 	     if (event.getSource() == btn2)
 	     {
@@ -67,6 +96,9 @@ public class Controller {
 			 Scene scene = new Scene(root);
 		     stage.setScene(scene);
 		     stage.show();
+
+				
+		     
 	     }
 	     
 	     if (event.getSource() == valid)
