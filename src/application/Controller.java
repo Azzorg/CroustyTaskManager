@@ -28,7 +28,7 @@ public class Controller {
 
 	@FXML
 	private TextField password;
-	
+
 	@FXML
 	private Label message;
 
@@ -93,9 +93,18 @@ public class Controller {
 
 		// Button connect
 		if (event.getSource() == btn1) {
-			client.sendUserConnexionNotNew(userName.getText(), password.getText());					//à enlever lorsque les mots de passe seront cryptés
-			//client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText()));	//à désélectionner 
+			client.sendUserConnexionNotNew(userName.getText(), password.getText()); // à
+																					// enlever
+																					// lorsque
+																					// les
+																					// mots
+																					// de
+																					// passe
+																					// seront
+																					// cryptés
 			
+			// client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); //à désélectionner
+
 			// Attente réponse
 			while (!client.getIn().readLine().equals("CONNEXION"))
 				System.out.println("Attente réponse serveur");
@@ -146,7 +155,8 @@ public class Controller {
 			System.out.println(task_Name + "\n");
 			System.out.println(task_Content + "\n");
 		}
-
+		
+		//Sur la page register teste d'enregistrement
 		if (event.getSource() == register) {
 			Stage stage = null;
 			Parent root = null;
@@ -156,6 +166,7 @@ public class Controller {
 			stage.setScene(scene);
 			stage.show();
 		}
+		
 		if (event.getSource() == register_page) {
 			Stage stage = null;
 			Parent root = null;
