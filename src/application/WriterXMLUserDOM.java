@@ -27,7 +27,7 @@ public class WriterXMLUserDOM {
 			DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 			domFactory.setIgnoringComments(true);
 			DocumentBuilder builder = domFactory.newDocumentBuilder();
-			Document doc = builder.parse(new File("user.xml"));
+			Document doc = builder.parse(new File("../user.xml"));
 
 			NodeList nodes = doc.getElementsByTagName("user");
 
@@ -56,7 +56,7 @@ public class WriterXMLUserDOM {
 
 			transformer = tFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("user.xml"));
+			StreamResult result = new StreamResult(new File("../user.xml"));
 			transformer.transform(source, result);
 
 		} catch (TransformerConfigurationException e) {
