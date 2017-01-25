@@ -18,7 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Controller {
 	Client client = new Client();
@@ -46,6 +48,8 @@ public class Controller {
 	@FXML
 	private Button valid;
 	@FXML
+	private Button edit_button;
+	@FXML
 	private VBox vb1;
 	@FXML
 	private VBox todo_task;
@@ -68,7 +72,7 @@ public class Controller {
 	private String task_Name = null;
 	private String task_Content = null;
 	
-	
+	Tache t = new Tache("bite",0,new Personne(0,"Guy","01"),new Personne(1,"marcel","01"),"blabla");
 
 	@FXML
 	protected void initialize() {
@@ -92,13 +96,32 @@ public class Controller {
 						try {
 							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
 							
-							((Label)task.getChildren().get(0)).setText("task " +j);
-							((TextArea)task.getChildren().get(1)).setText("description ");
+							((Label)task.getChildren().get(0)).setText(t.getNomTache());
+							((TextArea)task.getChildren().get(1)).setText(t.getDescriptif());
 							((TextArea)task.getChildren().get(1)).setEditable(false);
 							((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
 							((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
-							((Label)task.getChildren().get(4)).setText("Assignées par ... ");
+							((Label)task.getChildren().get(4)).setText("Assignées par " + t.getCreateur().getNomPersonne());
 							((Label)task.getChildren().get(5)).setText("priorité"); 
+							((Button)task.getChildren().get(6)).setText("bite"+j);
+							
+							((Button)task.getChildren().get(6)).setId("edit"+j);
+							((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> 
+							{
+					            
+								try {
+							        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Interface/edit_page.fxml"));
+					                Parent root1 = (Parent) fxmlLoader.load();
+					                Stage stage = new Stage();
+					                stage.setScene(new Scene(root1));  
+					                stage.show();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+							});
+
 							given_task.getChildren().add(task);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -126,6 +149,8 @@ public class Controller {
 							}
 						}
 					}
+					
+					
 				});
 				
 				vb1.getChildren().add(user);
@@ -213,15 +238,6 @@ public class Controller {
 			stage.show();
 		}
 		
-		if (event.getSource() == register_page) {
-			Stage stage = null;
-			Parent root = null;
-			stage = (Stage) register_page.getScene().getWindow();
-			root = FXMLLoader.load(getClass().getResource("../Interface/register.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		}
 		if (event.getSource() == register_page) {
 			Stage stage = null;
 			Parent root = null;
