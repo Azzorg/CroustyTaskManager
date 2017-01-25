@@ -29,7 +29,7 @@ public class WriterXMLUserDOM {
 			DocumentBuilder builder = domFactory.newDocumentBuilder();
 			Document doc = builder.parse(new File("src/user.xml"));
 
-			NodeList nodes = doc.getElementsByTagName("user");
+			NodeList nodes = doc.getElementsByTagName("root");
 
 			Element idElt = doc.createElement("idUser");
 			Element nomElt = doc.createElement("nomUser");
