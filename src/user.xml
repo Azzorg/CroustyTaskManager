@@ -16,5 +16,10 @@
 		<nomUser>Martine</nomUser>
 		<passWord>tune</passWord>
 	</user>
+	<user>
+		<idUser>4</idUser>
+		<nomUser>a</nomUser>
+		<passWord>a</passWord>
+	</user>
 </root>
 

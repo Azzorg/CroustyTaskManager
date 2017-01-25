@@ -8,9 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -46,7 +50,7 @@ public class Controller {
 	@FXML
 	private VBox todo_task;
 	@FXML
-	private VBox assigned_task;
+	private VBox given_task;
 	@FXML
 	private Button register;
 	@FXML
@@ -63,6 +67,8 @@ public class Controller {
 
 	private String task_Name = null;
 	private String task_Content = null;
+	
+	
 
 	@FXML
 	protected void initialize() {
@@ -73,15 +79,55 @@ public class Controller {
 				user.setMaxWidth(Double.MAX_VALUE);
 				user.setMaxHeight(Double.MAX_VALUE);
 				user.setId("user" + (i + 1));
-				user.addEventHandler(ActionEvent.ACTION, event -> {
-					assigned_task.getChildren().clear();
+				
+				// Action sur le bouton user
+				user.addEventHandler(ActionEvent.ACTION, event -> 
+				{
+					// vide des taches
+					given_task.getChildren().clear();
 					todo_task.getChildren().clear();
-					for (int j = 0; j < 1 + (int) (Math.random() * 1000); j++)
-						assigned_task.getChildren().add(new Button("assigned task" + j));
+					
+					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++)// ajout des taches assignées
+					{						
+						try {
+							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
+							
+							((Label)task.getChildren().get(0)).setText("task " +j);
+							((TextArea)task.getChildren().get(1)).setText("description ");
+							((TextArea)task.getChildren().get(1)).setEditable(false);
+							((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
+							((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
+							((Label)task.getChildren().get(4)).setText("Assignées par ... ");
+							((Label)task.getChildren().get(5)).setText("priorité");
+							given_task.getChildren().add(task);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 
-					for (int j = 0; j < 1 + (int) (Math.random() * 1000); j++)
-						todo_task.getChildren().add(new Button(" to dotask" + j));
+					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++) // ajout des taches à faire
+					{
+						{	
+							try {
+								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
+								
+								((Label)task.getChildren().get(0)).setText("task " +j);
+								((TextArea)task.getChildren().get(1)).setText("description ");
+								((TextArea)task.getChildren().get(1)).setEditable(false);
+								((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
+								((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
+								((Label)task.getChildren().get(4)).setText("Créée à ... ");
+								((Label)task.getChildren().get(5)).setText("priorité");
+								
+								
+								todo_task.getChildren().add(task);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
 				});
+				
 				vb1.getChildren().add(user);
 			}
 		}
