@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<root>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
 	<user>
 		<idUser>1</idUser>
 		<nomUser>Michel</nomUser>
 		<passWord>licorne</passWord>
-	</user>
+	<user><idUser>4</idUser><nomUser>Robert</nomUser><passWord>velux</passWord></user><user><idUser>4</idUser><nomUser>Robert</nomUser><passWord>velux</passWord></user></user>
 	<user>
 		<idUser>2</idUser>
 		<nomUser>Roger</nomUser>
@@ -22,4 +20,3 @@
 		<passWord>a</passWord>
 	</user>
 </root>
-
