@@ -12,6 +12,11 @@ public class Serveur {
 		ServerSocket welcomeSocket = null;
 
 		try {
+			Personne p = new Personne(4, "Robert", "velux");
+			WriterXMLUserDOM dom = new WriterXMLUserDOM();
+			dom.writeUser(p);
+			
+			
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
 				System.out.println("Attente du client...");

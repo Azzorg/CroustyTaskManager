@@ -6,6 +6,8 @@ public class Tache implements Serializable{
 	
 	private String nomTache;
 	private int idTache;
+	private String Etat;
+	private String priorite;
 	private Personne createur;
 	private Personne affecte;
 	private String descriptif;
@@ -16,6 +18,10 @@ public class Tache implements Serializable{
 		setCreateur(createur);
 		setAffecte(affecte);
 		setDescriptif(des);
+	}
+	
+	public Tache(){
+		
 	}
 
 	/**
@@ -96,6 +102,38 @@ public class Tache implements Serializable{
 	 */
 	public void setDescriptif(String descriptif) {
 		this.descriptif = descriptif;
+	}
+
+	/**
+	 * Setter de l'état
+	 * @return
+	 */
+	public String getEtat() {
+		return Etat;
+	}
+
+	/**
+	 * Getter de l'état
+	 * @param etat
+	 */
+	public void setEtat(String etat) {
+		Etat = etat;
+	}
+
+	/**
+	 * Getter de la priorité
+	 * @return
+	 */
+	public String getPriorite() {
+		return priorite;
+	}
+
+	/**
+	 * Setter de la priorite
+	 * @param priorite
+	 */
+	public void setPriorite(String priorite) {
+		this.priorite = priorite;
 	}
 	
 	

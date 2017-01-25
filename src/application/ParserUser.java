@@ -39,6 +39,15 @@ public class ParserUser extends DefaultHandler {
 		}
 		return false;
 	}
+	
+	public Personne getPersonneById(int id){
+		List<Personne> list = getListUser();
+		for(Personne p : list){
+			if(p.getIdPersonne() == id)
+				return p;
+		}
+		return null;
+	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
