@@ -101,7 +101,7 @@ public class Controller {
 							((TextArea)task.getChildren().get(1)).setEditable(false);
 							((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
 							((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
-							((Label)task.getChildren().get(4)).setText("Assignées par " + t.getCreateur().getNomPersonne());
+							((Label)task.getChildren().get(4)).setText("Assignées par " + t.getCreateur().getNomPersonne()); 
 							((Label)task.getChildren().get(5)).setText("priorité"); 
 							((Button)task.getChildren().get(6)).setText("bite"+j);
 							
