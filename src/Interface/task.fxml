@@ -42,5 +42,6 @@
             <Font size="28.0" />
          </font>
       </Label>
+      <Button mnemonicParsing="false" text="Edit" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
    </children>
 </GridPane>

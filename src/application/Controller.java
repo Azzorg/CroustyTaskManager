@@ -98,7 +98,7 @@ public class Controller {
 							((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
 							((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
 							((Label)task.getChildren().get(4)).setText("Assignées par ... ");
-							((Label)task.getChildren().get(5)).setText("priorité");
+							((Label)task.getChildren().get(5)).setText("priorité"); 
 							given_task.getChildren().add(task);
 						} catch (IOException e) {
 							e.printStackTrace();
