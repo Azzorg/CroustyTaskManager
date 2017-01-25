@@ -96,6 +96,11 @@ public class ActiviteServeur extends Thread {
 			ParserUser handlerSAX = new ParserUser();
 			sax.parse("src/user.xml", handlerSAX);
 			
+			//Initialisation du parser DOM pour écrire dans les documents xml
+			WriterXMLUserDOM domUser = new WriterXMLUserDOM();
+			WriterXMLTaskDOM domTask = new WriterXMLTaskDOM();
+			
+			
 			// La connexion est établie
 			OutputStream output = clientSocket.getOutputStream();
 			InputStream input = clientSocket.getInputStream();
@@ -110,6 +115,7 @@ public class ActiviteServeur extends Thread {
 				connexion = Connexion.valueOf(in.readLine());
 				String nom = in.readLine();
 				String pass = in.readLine();
+				Personne p = new Personne(handlerSAX.getListUser().size()+1, nom, pass);
 				
 				//Options en fonction du type de connexion
 				switch(connexion){
@@ -121,7 +127,7 @@ public class ActiviteServeur extends Thread {
 					if(handlerSAX.nameExist(nom))
 						out.println("CONNEXION\nNOTOK");
 					else{
-						//Ecriture dans le document XML
+						domUser.writeUser(p);
 						out.println("CONNEXION\nOK");
 						goOn = true;
 					}
