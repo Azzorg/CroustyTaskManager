@@ -83,7 +83,7 @@ public class Controller {
 
 	@FXML
 	protected void initialize() { // Document FXML chargé
-		client.connexionServer();
+		//client.connexionServer();
 		if (vb1 != null) { // On est dans la page accueil
 			for (int i = 0; i < 50; i++) { // ajout des boutons users
 				Button user = new Button("Utilisateur " + (i + 1));
@@ -203,17 +203,17 @@ public class Controller {
 		// Button connect
 		if (event.getSource() == btn1) {
 
-			client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); // à
+			//client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); // à
 																								// désélectionner
 
 			// Attente réponse
-			while (!client.getIn().readLine().equals("CONNEXION"))
+			/*while (!client.getIn().readLine().equals("CONNEXION"))
 				System.out.println("Attente réponse serveur");
-			Connex connex = Connex.valueOf(client.getIn().readLine());
+			Connex connex = Connex.valueOf(client.getIn().readLine());*/
 
-			switch (connex) {
+			/*switch (connex) {
 			// Le nom et le mot de passe corresponde
-			case OK:
+			case OK:*/
 				Stage stage = null;
 				Parent root = null;
 				stage = (Stage) btn1.getScene().getWindow();
@@ -221,14 +221,14 @@ public class Controller {
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.show();
-				break;
+				/*break;
 			// Le mot de passe ne correspond pas au nom
 			case NOTOK:
 				message.setText("Le mot de passe ou le nom n'est pas le bon");
 				break;
 			default:
 				break;
-			}
+			}*/
 		}
 
 		if (event.getSource() == btn2) {
