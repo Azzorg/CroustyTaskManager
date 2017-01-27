@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="604.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="application.Controller">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="79.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="167.0" />
@@ -19,14 +20,15 @@
     <RowConstraints maxHeight="232.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="247.0" minHeight="9.0" prefHeight="49.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField promptText="Name" GridPane.columnIndex="1" />
+      <TextField fx:id="edit_name" promptText="Name" GridPane.columnIndex="1" />
       <ComboBox prefWidth="150.0" promptText="For..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ComboBox prefWidth="150.0" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ComboBox prefWidth="150.0" promptText="Priority" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <TextArea fx:id="edit_description" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Button fx:id="edit_valid" mnemonicParsing="false" text="Valid" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
    </children>
 </GridPane>

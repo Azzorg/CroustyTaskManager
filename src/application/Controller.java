@@ -66,11 +66,23 @@ public class Controller {
 	private TextField task_name;
 	@FXML
 	private TextField task_content;
+	
+	
+	//Edit Page
+	@FXML
+	private TextField edit_name;
+	@FXML
+	private TextArea edit_description;
+	@FXML
+	private Button edit_valid;
+	
 
 	private int i = 2;
 
 	private String task_Name = null;
 	private String task_Content = null;
+	
+	
 	
 	Tache t = new Tache("bite",0,new Personne(0,"Guy","01"),new Personne(1,"marcel","01"),"blabla");
 
@@ -91,7 +103,7 @@ public class Controller {
 					given_task.getChildren().clear();
 					todo_task.getChildren().clear();
 					
-					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++)// ajout des taches assignées
+					for (int j = 0; j <10000 ; j++)// ajout des taches assignées
 					{						
 						try {
 							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
@@ -101,9 +113,9 @@ public class Controller {
 							((TextArea)task.getChildren().get(1)).setEditable(false);
 							((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
 							((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
-							((Label)task.getChildren().get(4)).setText("Assignées par " + t.getCreateur().getNomPersonne()); 
+							((Label)task.getChildren().get(4)).setText("Assignées à " + t.getCreateur().getNomPersonne()); 
 							((Label)task.getChildren().get(5)).setText("priorité"); 
-							((Button)task.getChildren().get(6)).setText("bite"+j);
+							((Button)task.getChildren().get(6)).setText("Edit");
 							
 							((Button)task.getChildren().get(6)).setId("edit"+j);
 							((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> 
@@ -115,6 +127,7 @@ public class Controller {
 					                Stage stage = new Stage();
 					                stage.setScene(new Scene(root1));  
 					                stage.show();
+
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -134,13 +147,35 @@ public class Controller {
 							try {
 								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
 								
-								((Label)task.getChildren().get(0)).setText("task " +j);
+								((Label)task.getChildren().get(0)).setText(t.getNomTache());
 								((TextArea)task.getChildren().get(1)).setText("description ");
 								((TextArea)task.getChildren().get(1)).setEditable(false);
 								((ComboBox)task.getChildren().get(2)).getItems().addAll("à faire" , "en cours" , "arrêt" , "terminer");
 								((ComboBox)task.getChildren().get(2)).getSelectionModel().selectFirst();
-								((Label)task.getChildren().get(4)).setText("Créée à ... ");
+								((Label)task.getChildren().get(4)).setText("Créée par " + t.getCreateur().getNomPersonne());
 								((Label)task.getChildren().get(5)).setText("priorité");
+								((Label)task.getChildren().get(5)).setText("priorité"); 
+								((Button)task.getChildren().get(6)).setText("Edit");
+								
+								((Button)task.getChildren().get(6)).setId("edit"+j);
+								((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> 
+								{
+						            
+									try {
+								        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Interface/edit_page.fxml"));
+						                Parent root1 = (Parent) fxmlLoader.load();
+						                Stage stage = new Stage();
+						                stage.setScene(new Scene(root1));  
+						                stage.show();
+						                
+						                edit_name.setText(t.getNomTache());
+						                edit_description.setText(t.getDescriptif());
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+
+								});
 								
 								
 								todo_task.getChildren().add(task);
@@ -156,6 +191,13 @@ public class Controller {
 				vb1.getChildren().add(user);
 			}
 		}
+		
+        if(edit_name!=null)
+        {
+            ((TextField)edit_name).setText(t.getNomTache());
+            ((TextArea)edit_description).setText(t.getDescriptif());        	
+        }
+
 
 	}
 
@@ -252,6 +294,16 @@ public class Controller {
 			Parent root = null;
 			stage = (Stage) log_out.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("../Interface/login.fxml"));
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
+		if (event.getSource() == edit_valid) {
+			System.out.println("azeazeaze");
+			Stage stage = null;
+			Parent root = null;
+			stage = (Stage) log_out.getScene().getWindow();
+			root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
