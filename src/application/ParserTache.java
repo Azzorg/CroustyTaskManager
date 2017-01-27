@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
-public class ParserTache {
+public class ParserTache extends DefaultHandler {
 	private List<Tache> listTache = new ArrayList<Tache>();
 	private Tache task;
 	private String balise;

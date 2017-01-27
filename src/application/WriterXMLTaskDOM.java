@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,15 +21,29 @@ import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
 public class WriterXMLTaskDOM {
-	public void writeUser(Tache t) {
+
+	DocumentBuilderFactory domFactory;
+	DocumentBuilder builder;
+	Document doc;
+
+	public WriterXMLTaskDOM() {
+		try {
+			domFactory = DocumentBuilderFactory.newInstance();
+			domFactory.setIgnoringComments(true);
+			builder = domFactory.newDocumentBuilder();
+			doc = builder.parse(new File("src/tache.xml"));
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void writeTask(Tache t) {
+
 		try {
 			System.out.println("XML WRITER");
-
-			DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-			domFactory.setIgnoringComments(true);
-			DocumentBuilder builder = domFactory.newDocumentBuilder();
-			Document doc = builder.parse(new File("src/user.xml"));
-
+			
 			NodeList nodes = doc.getElementsByTagName("root");
 
 			Element idElt = doc.createElement("idTache");
@@ -56,8 +71,6 @@ public class WriterXMLTaskDOM {
 			prioElt.appendChild(prioValue);
 			etatElt.appendChild(etatValue);
 			descElt.appendChild(descValue);
-			
-			
 
 			userElt.appendChild(idElt);
 			userElt.appendChild(nomElt);
@@ -69,13 +82,16 @@ public class WriterXMLTaskDOM {
 
 			nodes.item(0).appendChild(userElt);
 
+			System.out.println("Création transformer");
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			Transformer transformer;
 
+			System.out.println("Ecriture doc");
 			transformer = tFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("src/user.xml"));
+			StreamResult result = new StreamResult(new File("src/tache.xml"));
 			transformer.transform(source, result);
+			System.out.println("Fin ecriture doc");
 
 		} catch (TransformerConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -83,16 +99,33 @@ public class WriterXMLTaskDOM {
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SAXException e) {
+		}
+
+	}
+
+	public void removeTask(String idTask) {
+		NodeList nodes = doc.getElementsByTagName("Tache");
+		
+		for(int i = 0; i<nodes.getLength(); i++){
+			Element tache = (Element) nodes.item(i);
+			Element id = (Element) tache.getElementsByTagName("idTache").item(0);
+			String idTache = id.getTextContent();
+			if(idTache.equals(idTask))
+				tache.getParentNode().removeChild(tache);
+		}
+		try {
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer;
+			transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("src/tache.xml"));
+			transformer.transform(source, result);
+		} catch (TransformerConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
+		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }
