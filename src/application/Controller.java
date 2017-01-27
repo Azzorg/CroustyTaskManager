@@ -26,25 +26,18 @@ public class Controller {
 
 	@FXML
 	protected Text actiontarget;
-
 	@FXML
 	private TextField password;
-
 	@FXML
 	private Label message;
-
 	@FXML
 	private TextField userName;
-
 	@FXML
 	private TextField username;
-
 	@FXML
 	private TextField password_repeat;
-
 	@FXML
 	private Label instruction;
-
 	@FXML
 	private Button btn1;
 	@FXML
@@ -65,7 +58,6 @@ public class Controller {
 	private Button register_page;
 	@FXML
 	private Button log_out;
-
 	@FXML
 	private TextField task_name;
 	@FXML
@@ -103,7 +95,8 @@ public class Controller {
 							((Label) task.getChildren().get(0)).setText(t.getNomTache());
 							((TextArea) task.getChildren().get(1)).setText(t.getDescriptif());
 							((TextArea) task.getChildren().get(1)).setEditable(false);
-							((ComboBox) task.getChildren().get(2)).getItems().addAll("à faire", "en cours", "arrêt", "terminer");
+							((ComboBox) task.getChildren().get(2)).getItems().addAll("à faire", "en cours", "arrêt",
+									"terminer");
 							((ComboBox) task.getChildren().get(2)).getSelectionModel().selectFirst();
 							((Label) task.getChildren().get(4))
 									.setText("Assignées par " + t.getCreateur().getNomPersonne());
@@ -163,7 +156,6 @@ public class Controller {
 				vb1.getChildren().add(user);
 			}
 		}
-
 	}
 
 	@FXML
@@ -198,7 +190,6 @@ public class Controller {
 			default:
 				break;
 			}
-
 		}
 
 		if (event.getSource() == btn2) {
@@ -209,7 +200,6 @@ public class Controller {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-
 		}
 
 		if (event.getSource() == valid) {
@@ -255,7 +245,6 @@ public class Controller {
 				default:
 					break;
 				}
-
 			}
 			// Ils ne sont pas identiques
 			else

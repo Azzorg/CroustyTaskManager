@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<root>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
 	<user>
 		<idUser>1</idUser>
 		<nomUser>Camille</nomUser>
 		<passWord>81dc9bdb52d04dc20036dbd8313ed055</passWord>
 	</user>
-</root>
+<user><idUser>2</idUser><nomUser>a</nomUser><passWord>0cc175b9c0f1b6a831c399e269772661</passWord></user></root>

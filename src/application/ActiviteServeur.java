@@ -19,7 +19,8 @@ import org.xml.sax.SAXException;
 
 public class ActiviteServeur extends Thread {
 	Socket clientSocket;
-	private enum Connexion{
+
+	private enum Connexion {
 		NEW, NOTNEW;
 	}
 
@@ -87,73 +88,72 @@ public class ActiviteServeur extends Thread {
 		try {
 			Thread.sleep(1000);
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
-			
-			//Initialisation du parser XML pour le document user.xml
+
+			// Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			SAXParser sax = factory.newSAXParser();
 
 			ParserUser handlerSAX = new ParserUser();
 			sax.parse("src/user.xml", handlerSAX);
-			
-			//Initialisation du parser DOM pour écrire dans les documents xml
+
+			// Initialisation du parser DOM pour écrire dans les documents xml
 			WriterXMLUserDOM domUser = new WriterXMLUserDOM();
 			WriterXMLTaskDOM domTask = new WriterXMLTaskDOM();
-			
-			
+
 			// La connexion est établie
 			OutputStream output = clientSocket.getOutputStream();
 			InputStream input = clientSocket.getInputStream();
 			BufferedReader in = new BufferedReader(new InputStreamReader(input));
 			PrintStream out = new PrintStream(output);
-			
-			while(!goOn){
-				//Attente des instructions de connection
-				while(!in.readLine().equals("CONNEXION")){
+
+			while (!goOn) {
+				// Attente des instructions de connection
+				while (!in.readLine().equals("CONNEXION")) {
 					System.out.println("Attente du client " + clientSocket.getLocalAddress());
 				}
 				connexion = Connexion.valueOf(in.readLine());
 				String nom = in.readLine();
 				String pass = in.readLine();
-				Personne p = new Personne(handlerSAX.getListUser().size()+1, nom, pass);
-				
-				//Options en fonction du type de connexion
-				switch(connexion){
-				
-				//Création d'un nouveau compte
+				Personne p = new Personne(handlerSAX.getListUser().size() + 1, nom, pass);
+
+				// Options en fonction du type de connexion
+				switch (connexion) {
+
+				// Création d'un nouveau compte
 				case NEW:
-					
-					//Vérification si le nom existe déjà dans le document XML des users
-					if(handlerSAX.nameExist(nom))
+
+					// Vérification si le nom existe déjà dans le document XML
+					// des users
+					if (handlerSAX.nameExist(nom))
 						out.println("CONNEXION\nNOTOK");
-					else{
+					else {
 						domUser.writeUser(p);
 						out.println("CONNEXION\nOK");
 						goOn = true;
 					}
 					break;
-					
-				//Connexion avec un compte déjà existant
+
+				// Connexion avec un compte déjà existant
 				case NOTNEW:
-					//Vérification que le nom correspond au mot de passe envoyé
-					if(handlerSAX.correspondanceNamePassword(nom, pass)){
+					// Vérification que le nom correspond au mot de passe envoyé
+					if (handlerSAX.correspondanceNamePassword(nom, pass)) {
 						System.out.println("ok");
 						out.println("CONNEXION\nOK");
 						goOn = true;
-					}
-					else
+					} else
 						out.println("CONNEXION\nNOTOK");
-						
+
 					break;
 				default:
 					System.out.println("Erreur du message de connexion");
 					break;
 				}
 			}
-			
+
 			goOn = false;
 
-			// Récupération de tous les users dans le 
+			// Récupération de tous les users dans le
 			List<Personne> listUser = handlerSAX.getListUser();
 
 			// Send the user list

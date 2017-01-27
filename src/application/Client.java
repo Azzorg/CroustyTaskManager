@@ -113,8 +113,8 @@ public class Client {
 	public void sendUserConnexionNotNew(String name, String pw) {
 		this.out.println("CONNEXION\nNOTNEW\n" + name + "\n" + pw);
 	}
-	
-	public void sendUserConnexionNew(String name, String pw){
+
+	public void sendUserConnexionNew(String name, String pw) {
 		this.out.println("CONNEXION\nNEW\n" + name + "\n" + pw);
 	}
 
