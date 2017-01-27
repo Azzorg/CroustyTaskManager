@@ -75,15 +75,11 @@ public class Controller {
 
 	private String task_Name = null;
 	private String task_Content = null;
-<<<<<<< HEAD
 	
-	
-	
-	Tache t = new Tache("bite",0,new Personne(0,"Guy","01"),new Personne(1,"marcel","01"),"blabla");
-=======
+
+
 
 	Tache t = new Tache("bite", 0, new Personne(0, "Guy", "01"), new Personne(1, "marcel", "01"), "blabla");
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 
 	@FXML
 	protected void initialize() {
@@ -100,21 +96,14 @@ public class Controller {
 					// vide des taches
 					given_task.getChildren().clear();
 					todo_task.getChildren().clear();
-<<<<<<< HEAD
 					
-					for (int j = 0; j <10000 ; j++)// ajout des taches assignées
-					{						
-=======
-
 					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++)// ajout
 																			// des
 																			// taches
 																			// assignées
 					{
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 						try {
 							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
-<<<<<<< HEAD
 							
 							((Label)task.getChildren().get(0)).setText(t.getNomTache());
 							((TextArea)task.getChildren().get(1)).setText(t.getDescriptif());
@@ -128,40 +117,13 @@ public class Controller {
 							((Button)task.getChildren().get(6)).setId("edit"+j);
 							((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> 
 							{
-					            
-=======
 
-							((Label) task.getChildren().get(0)).setText(t.getNomTache());
-							((TextArea) task.getChildren().get(1)).setText(t.getDescriptif());
-							((TextArea) task.getChildren().get(1)).setEditable(false);
-							((ComboBox) task.getChildren().get(2)).getItems().addAll("à faire", "en cours", "arrêt",
-									"terminer");
-							((ComboBox) task.getChildren().get(2)).getSelectionModel().selectFirst();
-							((Label) task.getChildren().get(4))
-									.setText("Assignées par " + t.getCreateur().getNomPersonne());
-							((Label) task.getChildren().get(5)).setText("priorité");
-							((Button) task.getChildren().get(6)).setText("bite" + j);
-
-							((Button) task.getChildren().get(6)).setId("edit" + j);
-							((Button) task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> {
-
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 								try {
-<<<<<<< HEAD
 							        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Interface/edit_page.fxml"));
 					                Parent root1 = (Parent) fxmlLoader.load();
 					                Stage stage = new Stage();
 					                stage.setScene(new Scene(root1));  
 					                stage.show();
-
-=======
-									FXMLLoader fxmlLoader = new FXMLLoader(
-											getClass().getResource("../Interface/edit_page.fxml"));
-									Parent root1 = (Parent) fxmlLoader.load();
-									Stage stage = new Stage();
-									stage.setScene(new Scene(root1));
-									stage.show();
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -184,7 +146,6 @@ public class Controller {
 						{
 							try {
 								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
-<<<<<<< HEAD
 								
 								((Label)task.getChildren().get(0)).setText(t.getNomTache());
 								((TextArea)task.getChildren().get(1)).setText("description ");
@@ -215,19 +176,6 @@ public class Controller {
 									}
 
 								});
-								
-								
-=======
-
-								((Label) task.getChildren().get(0)).setText("task " + j);
-								((TextArea) task.getChildren().get(1)).setText("description ");
-								((TextArea) task.getChildren().get(1)).setEditable(false);
-								((ComboBox) task.getChildren().get(2)).getItems().addAll("à faire", "en cours", "arrêt", "terminer");
-								((ComboBox) task.getChildren().get(2)).getSelectionModel().selectFirst();
-								((Label) task.getChildren().get(4)).setText("Créée à ... ");
-								((Label) task.getChildren().get(5)).setText("priorité");
-
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 								todo_task.getChildren().add(task);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -240,18 +188,12 @@ public class Controller {
 				vb1.getChildren().add(user);
 			}
 		}
-<<<<<<< HEAD
 		
         if(edit_name!=null)
         {
             ((TextField)edit_name).setText(t.getNomTache());
             ((TextArea)edit_description).setText(t.getDescriptif());        	
-        }
-
-
-=======
->>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
-	}
+        }	}
 
 	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException {
