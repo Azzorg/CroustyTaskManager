@@ -82,10 +82,10 @@ public class Controller {
 	Tache t = new Tache("bite", 0, new Personne(0, "Guy", "01"), new Personne(1, "marcel", "01"), "blabla");
 
 	@FXML
-	protected void initialize() {
+	protected void initialize() { // Document FXML chargé
 		client.connexionServer();
-		if (vb1 != null) {
-			for (int i = 0; i < 50; i++) {
+		if (vb1 != null) { // On est dans la page accueil
+			for (int i = 0; i < 50; i++) { // ajout des boutons users
 				Button user = new Button("Utilisateur " + (i + 1));
 				user.setMaxWidth(Double.MAX_VALUE);
 				user.setMaxHeight(Double.MAX_VALUE);
@@ -103,8 +103,9 @@ public class Controller {
 																			// assignées
 					{
 						try {
-							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
+							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement du document FXML pour les taches
 							
+							// Définition des textes
 							((Label)task.getChildren().get(0)).setText(t.getNomTache());
 							((TextArea)task.getChildren().get(1)).setText(t.getDescriptif());
 							((TextArea)task.getChildren().get(1)).setEditable(false);
@@ -115,7 +116,7 @@ public class Controller {
 							((Button)task.getChildren().get(6)).setText("Edit");
 							
 							((Button)task.getChildren().get(6)).setId("edit"+j);
-							((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 -> 
+							((Button)task.getChildren().get(6)).addEventHandler(ActionEvent.ACTION, event_2 ->  //action sur le bouton edit
 							{
 
 								try {
@@ -145,8 +146,9 @@ public class Controller {
 					{
 						{
 							try {
-								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
+								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement du document FXML
 								
+								//Définitions des textes
 								((Label)task.getChildren().get(0)).setText(t.getNomTache());
 								((TextArea)task.getChildren().get(1)).setText("description ");
 								((TextArea)task.getChildren().get(1)).setEditable(false);
@@ -189,7 +191,7 @@ public class Controller {
 			}
 		}
 		
-        if(edit_name!=null)
+        if(edit_name!=null) // Si on est dans la page d'edition de taches
         {
             ((TextField)edit_name).setText(t.getNomTache());
             ((TextArea)edit_description).setText(t.getDescriptif());        	
