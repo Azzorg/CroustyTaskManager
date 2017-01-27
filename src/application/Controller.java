@@ -97,7 +97,10 @@ public class Controller {
 					given_task.getChildren().clear();
 					todo_task.getChildren().clear();
 					
-					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++)// ajout des taches créés
+					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++)// ajout
+																			// des
+																			// taches
+																			// assignées
 					{
 						try {
 							GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
@@ -134,7 +137,11 @@ public class Controller {
 						}
 					}
 
-					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++) // ajout des taches à faire
+					for (int j = 0; j < 1 + (int) (Math.random() * 10); j++) // ajout
+																				// des
+																				// taches
+																				// à
+																				// faire
 					{
 						{
 							try {
