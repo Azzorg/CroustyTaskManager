@@ -114,6 +114,10 @@ public class Client {
 		this.out.println("CONNEXION\nNOTNEW\n" + name + "\n" + pw);
 	}
 
+	public void sendUserConnexionNew(String name, String pw) {
+		this.out.println("CONNEXION\nNEW\n" + name + "\n" + pw);
+	}
+
 	public static void main(String[] args) {
 		/*
 		 * Client client = new Client();

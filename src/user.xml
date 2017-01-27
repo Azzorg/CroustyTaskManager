@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
 	<user>
+		<idUser>0</idUser>
+		<nomUser>Camille</nomUser>
+		<passWord>81dc9bdb52d04dc20036dbd8313ed055</passWord>
+	</user>
+	<user>
 		<idUser>1</idUser>
-		<nomUser>Michel</nomUser>
-		<passWord>licorne</passWord>
-	</user>
-	<user>
-		<idUser>2</idUser>
-		<nomUser>Roger</nomUser>
-		<passWord>ordi</passWord>
-	</user>
-	<user>
-		<idUser>3</idUser>
-		<nomUser>Martine</nomUser>
-		<passWord>tune</passWord>
-	</user>
-	<user>
-		<idUser>4</idUser>
 		<nomUser>a</nomUser>
-		<passWord>a</passWord>
+		<passWord>0cc175b9c0f1b6a831c399e269772661</passWord>
 	</user>
 <user><idUser>4</idUser><nomUser>Robert</nomUser><passWord>velux</passWord></user><user><idUser>4</idUser><nomUser>Robert</nomUser><passWord>velux</passWord></user></root>
