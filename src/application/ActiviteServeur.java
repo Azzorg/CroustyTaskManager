@@ -62,6 +62,43 @@ public class ActiviteServeur extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	public void SendUser(Personne me, OutputStream out){
+		try {
+			ObjectOutputStream userObj = new ObjectOutputStream(out);
+			userObj.writeObject(me);
+			userObj.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void SendListTaskToDo(Personne p, OutputStream out){
+		try {
+			ParserTache parser = new ParserTache();
+			List <Tache> list = parser.getListTacheAffecteById(p.getIdPersonne());
+			ObjectOutputStream userObj = new ObjectOutputStream(out);
+			userObj.writeObject(list);
+			userObj.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void SendListTaskGiven(Personne p, OutputStream out){
+		try {
+			ParserTache parser = new ParserTache();
+			List <Tache> list = parser.getListTacheCreateurById(p.getIdPersonne());
+			ObjectOutputStream userObj = new ObjectOutputStream(out);
+			userObj.writeObject(list);
+			userObj.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 
@@ -93,12 +130,20 @@ public class ActiviteServeur extends Thread {
 		Action action;
 		List<Tache> tacheCreate = new ArrayList<Tache>();
 		List<Tache> tacheAff = new ArrayList<Tache>();
+		Personne me = null;
 		
 		boolean goOn = false;
 		System.out.println("Nouveau client");
 		try {
-			Thread.sleep(1000);
 			System.out.println("Client " + clientSocket.getLocalAddress() + " accepté");
+
+			// La connexion est établie
+			OutputStream output = clientSocket.getOutputStream();
+			InputStream input = clientSocket.getInputStream();
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			PrintStream out = new PrintStream(output);
+			//ObjectInputStream objIn = new ObjectInputStream(input);
+			//ObjectOutputStream objOut = new ObjectOutputStream(output);
 
 			// Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -114,42 +159,34 @@ public class ActiviteServeur extends Thread {
 			SAXParser saxTask = factoryTask.newSAXParser();
 			
 			ParserTache taskXML = new ParserTache();
-			saxTask.parse("src/tache.xml", taskXML);
+			/*saxTask.parse("src/tache.xml", taskXML);*/
 
 			// Initialisation du parser DOM pour écrire dans les documents xml
 			WriterXMLUserDOM domUser = new WriterXMLUserDOM();
 			WriterXMLTaskDOM domTask = new WriterXMLTaskDOM();
 
-			// La connexion est établie
-			OutputStream output = clientSocket.getOutputStream();
-			InputStream input = clientSocket.getInputStream();
-			BufferedReader in = new BufferedReader(new InputStreamReader(input));
-			PrintStream out = new PrintStream(output);
-			ObjectInputStream objIn = new ObjectInputStream(input);
-			ObjectOutputStream objOut = new ObjectOutputStream(output);
-
 			while (!goOn) {
 				// Attente des instructions de connection
-				while (!in.readLine().equals("CONNEXION")) {
+				System.out.println("Attente demande connexion");
+				while (!in.readLine().equals("CONNEXION")) 
 					System.out.println("Attente du client " + clientSocket.getLocalAddress());
-				}
+				
+				System.out.println("renvoi connexion");
 				connexion = Connexion.valueOf(in.readLine());
 				String nom = in.readLine();
 				String pass = in.readLine();
-				Personne p = new Personne(handlerSAX.getListUser().size() + 1, nom, pass);
 
 				// Options en fonction du type de connexion
 				switch (connexion) {
 
 				// Création d'un nouveau compte
 				case NEW:
-
-					// Vérification si le nom existe déjà dans le document XML
-					// des users
+					// Vérification si le nom existe déjà dans le document XML des users
 					if (handlerSAX.nameExist(nom))
 						out.println("CONNEXION\nNOTOK");
 					else {
-						domUser.writeUser(p);
+						me = new Personne(handlerSAX.getListUser().get(handlerSAX.getListUser().size()).getIdPersonne(), nom, pass);
+						domUser.writeUser(me);
 						out.println("CONNEXION\nOK");
 						isConnected = true;
 						goOn = true;
@@ -160,6 +197,7 @@ public class ActiviteServeur extends Thread {
 				case NOTNEW:
 					// Vérification que le nom correspond au mot de passe envoyé
 					if (handlerSAX.correspondanceNamePassword(nom, pass)) {
+						me = handlerSAX.getPersonneByName(nom);
 						System.out.println("ok");
 						out.println("CONNEXION\nOK");
 						isConnected = true;
@@ -178,11 +216,28 @@ public class ActiviteServeur extends Thread {
 
 			// Récupération de tous les users dans le
 			List<Personne> listUser = handlerSAX.getListUser();
-
 			// Send the user list
 			SendUserList(listUser, output);
 			
-			//
+			while(!in.readLine().equals("ME"))
+				System.out.println("Attente client");
+			
+			//Envoi de la personne connectée
+			SendUser(me, output);
+			
+			while(!in.readLine().equals("OK"))
+				System.out.println("Attente client");
+			
+			//Envoi de la liste de tache à faire par la personne connectée
+			SendListTaskToDo(me, output);
+			
+			while(!in.readLine().equals("OK"))
+				System.out.println("Attente client");
+			
+			//Envoi de la liste de tache créées par la personne connectée
+			SendListTaskGiven(me, output);
+			
+			// Une fois la personne connectée
 			while(isConnected){
 				while(!in.readLine().equals("ACTION")){
 					System.out.println("Attente client");
@@ -197,21 +252,21 @@ public class ActiviteServeur extends Thread {
 					break;
 				//Création d'une nouvelle tache
 				case NEW_TASK:
-					Tache newTask = (Tache) objIn.readObject(); 
+					/*Tache newTask = (Tache) objIn.readObject(); 
 					newTask.setIdTache(taskXML.getListTache().get(taskXML.getListTache().size()).getIdTache() + 1);
-					domTask.writeTask(newTask);
+					domTask.writeTask(newTask);*/
 					break;
 				//Envoie d'une liste de tache en fonction de l'utilisateur
 				case LIST_TASK:
 					//Envoie de la liste createur
-					objOut.writeObject(taskXML.getListTacheCreateurById(Integer.parseInt(in.readLine())));
+					/*objOut.writeObject(taskXML.getListTacheCreateurById(Integer.parseInt(in.readLine())));
 					objOut.flush();
 					//Attente de la bonne réception du client
 					while(!in.readLine().equals("OK"))
 						System.out.println("Attente du client");
 					//Attente de la liste affecte
 					objOut.writeObject(taskXML.getListTacheAffecteById(Integer.parseInt(in.readLine())));
-					objOut.flush();
+					objOut.flush();*/
 					break;
 				//Suppression d'une tache 
 				case SUPPRESS_TASK:
@@ -235,18 +290,9 @@ public class ActiviteServeur extends Thread {
 			 */
 
 			
-		} catch (IOException | InterruptedException | ParserConfigurationException | SAXException | ClassNotFoundException e) {
+		} catch (IOException | ParserConfigurationException | SAXException /*| ClassNotFoundException*/ e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally{
-			// Fermeture socket
-			try {
-				clientSocket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 }

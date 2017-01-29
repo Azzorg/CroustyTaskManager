@@ -43,6 +43,8 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	/**
 	 * To send a user to the server
@@ -194,5 +196,13 @@ public class Client {
 	 */
 	public static void setListUser(ArrayList<Personne> listUser) {
 		Client.listUser = listUser;
+	}
+	
+	public InputStream getInput(){
+		return input;
+	}
+	
+	public PrintStream getOut(){
+		return out;
 	}
 }

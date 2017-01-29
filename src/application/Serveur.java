@@ -14,16 +14,14 @@ public class Serveur {
 	final public int PORT = 1501; // Numéro du port utilisé
 
 	public static void main(String[] Args) {
-		System.out.println("Début server");
+		System.out.println("Lancement serveur");
 		Serveur serveur = new Serveur();
 		ServerSocket welcomeSocket = null;
 
 		try {
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
-				System.out.println("Attente du client...");
 				Socket aClient = welcomeSocket.accept(); // Attente du client
-
 				new ActiviteServeur("act", aClient).start();
 			}
 		} catch (IOException e) {
@@ -31,11 +29,11 @@ public class Serveur {
 			e.printStackTrace();
 		} finally {
 			try {
+				System.out.println("Fermeture socket serveur");
 				welcomeSocket.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-
 		}
 	}
 

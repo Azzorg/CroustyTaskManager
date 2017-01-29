@@ -96,16 +96,12 @@ public class Controller {
 	
 	// La personne sélectionné
 	private Personne pActual = new Personne();
-	
-
-
 
 	Tache t = new Tache("bite", 0, new Personne(0, "Guy", "01"), new Personne(1, "marcel", "01"), "blabla");
-
 	
 	@FXML
 	protected void initialize() { // Document FXML chargé	
-		//client.connexionServer();
+		client.connexionServer();
 		if (vb1 != null) { // On est dans la page accueil
 			for (int i = 0; i < Main.listePersonne.size(); i++) { // ajout des boutons users
 				Button user = new Button(Main.listePersonne.get(i).getNomPersonne());
@@ -120,26 +116,26 @@ public class Controller {
 					todo_task.getChildren().clear();
 					created_task.getChildren().clear();	
 					
-					for (int j = 0; j <Main.listeTache.size(); j++)// ajout des taches à faire
+					for (int j = 0; j <Main.listeTacheAFaire.size(); j++)// ajout des taches à faire
 					{
 						try {
-							if(Main.listeTache.get(j).getAffecte().getIdPersonne() == pActual.getIdPersonne())
+							if(Main.listeTacheAFaire.get(j).getAffecte().getIdPersonne() == pActual.getIdPersonne())
 							{
 								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement du document FXML pour les taches
-								task.setId(Integer.toString(Main.listeTache.get(j).getIdTache()));
+								task.setId(Integer.toString(Main.listeTacheAFaire.get(j).getIdTache()));
 								
-								((Label)task.getChildren().get(0)).setText(Main.listeTache.get(j).getNomTache());
-								((TextArea)task.getChildren().get(1)).setText(Main.listeTache.get(j).getDescriptif());
+								((Label)task.getChildren().get(0)).setText(Main.listeTacheAFaire.get(j).getNomTache());
+								((TextArea)task.getChildren().get(1)).setText(Main.listeTacheAFaire.get(j).getDescriptif());
 								((TextArea)task.getChildren().get(1)).setEditable(false);
-								((Label)task.getChildren().get(2)).setText(Main.listeTache.get(j).getEtat());
-								((Label)task.getChildren().get(3)).setText("Crée par : "+Main.listeTache.get(j).getCreateur().getNomPersonne());
-								((Label)task.getChildren().get(5)).setText("Priorité : "+Main.listeTache.get(j).getPriorite());
+								((Label)task.getChildren().get(2)).setText(Main.listeTacheAFaire.get(j).getEtat());
+								((Label)task.getChildren().get(3)).setText("Crée par : "+Main.listeTacheAFaire.get(j).getCreateur().getNomPersonne());
+								((Label)task.getChildren().get(5)).setText("Priorité : "+Main.listeTacheAFaire.get(j).getPriorite());
 								((Button)task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 ->  //action sur le bouton edit
 								{
-									for(int k=0 ; k<Main.listeTache.size() ; k++)
+									for(int k=0 ; k<Main.listeTacheAFaire.size() ; k++)
 									{
-										if(Integer.parseInt(task.getId()) == Main.listeTache.get(k).getIdTache())
-											Main.tActual = Main.listeTache.get(k);
+										if(Integer.parseInt(task.getId()) == Main.listeTacheAFaire.get(k).getIdTache())
+											Main.tActual = Main.listeTacheAFaire.get(k);
 									}
 									
 									try {
@@ -157,7 +153,7 @@ public class Controller {
 									}
 
 								});			
-								if(Main.listeTache.get(j).getCreateur() == Main.me || Main.listeTache.get(j).getAffecte() == Main.me)
+								if(Main.listeTacheAFaire.get(j).getCreateur() == Main.me || Main.listeTacheAFaire.get(j).getAffecte() == Main.me)
 									((Button)task.getChildren().get(4)).setDisable(false);
 								else
 									((Button)task.getChildren().get(4)).setDisable(true);
@@ -169,26 +165,26 @@ public class Controller {
 					}
 
 
-					for (int j = 0; j <Main.listeTache.size(); j++) // ajout des taches crées
+					for (int j = 0; j <Main.listeTacheDonnees.size(); j++) // ajout des taches crées
 					{
 							try {
-								if(Main.listeTache.get(j).getCreateur().getIdPersonne() == pActual.getIdPersonne())
+								if(Main.listeTacheDonnees.get(j).getCreateur().getIdPersonne() == pActual.getIdPersonne())
 								{
 									GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement du document FXML
-									task.setId(Integer.toString(Main.listeTache.get(j).getIdTache()));
-									((Label)task.getChildren().get(0)).setText(Main.listeTache.get(j).getNomTache());
-									((TextArea)task.getChildren().get(1)).setText(Main.listeTache.get(j).getDescriptif());
+									task.setId(Integer.toString(Main.listeTacheDonnees.get(j).getIdTache()));
+									((Label)task.getChildren().get(0)).setText(Main.listeTacheDonnees.get(j).getNomTache());
+									((TextArea)task.getChildren().get(1)).setText(Main.listeTacheDonnees.get(j).getDescriptif());
 									((TextArea)task.getChildren().get(1)).setEditable(false);
-									((Label)task.getChildren().get(2)).setText(Main.listeTache.get(j).getEtat());
-									((Label)task.getChildren().get(3)).setText("Affectée à : "+Main.listeTache.get(j).getAffecte().getNomPersonne());
-									((Label)task.getChildren().get(5)).setText("Priorité : "+Main.listeTache.get(j).getPriorite());
+									((Label)task.getChildren().get(2)).setText(Main.listeTacheDonnees.get(j).getEtat());
+									((Label)task.getChildren().get(3)).setText("Affectée à : "+Main.listeTacheDonnees.get(j).getAffecte().getNomPersonne());
+									((Label)task.getChildren().get(5)).setText("Priorité : "+Main.listeTacheDonnees.get(j).getPriorite());
 									((Button)task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 ->  //action sur le bouton edit
 									{
 										
-										for(int k=0 ; k<Main.listeTache.size() ; k++)
+										for(int k=0 ; k<Main.listeTacheDonnees.size() ; k++)
 										{
-											if(Integer.parseInt(task.getId()) == Main.listeTache.get(k).getIdTache())
-												Main.tActual = Main.listeTache.get(k);
+											if(Integer.parseInt(task.getId()) == Main.listeTacheDonnees.get(k).getIdTache())
+												Main.tActual = Main.listeTacheDonnees.get(k);
 										}
 										try {
 											
@@ -207,7 +203,7 @@ public class Controller {
 
 									});
 									
-									if(Main.listeTache.get(j).getCreateur() == Main.me || Main.listeTache.get(j).getAffecte() == Main.me)
+									if(Main.listeTacheDonnees.get(j).getCreateur() == Main.me || Main.listeTacheDonnees.get(j).getAffecte() == Main.me)
 										((Button)task.getChildren().get(4)).setDisable(false);
 									else
 										((Button)task.getChildren().get(4)).setDisable(true);
@@ -265,18 +261,29 @@ public class Controller {
 
 		// Button connect
 		if (event.getSource() == btn1) {
-
-			//client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); // à
-																								// désélectionner
+			System.out.println("username : " + userName.getText());
+			System.out.println("pw : " + password.getText());
+			client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); // à désélectionner
+			System.out.println("Demande connexion");
 
 			// Attente réponse
-			/*while (!client.getIn().readLine().equals("CONNEXION"))
+			while (!client.getIn().readLine().equals("CONNEXION"))
 				System.out.println("Attente réponse serveur");
-			Connex connex = Connex.valueOf(client.getIn().readLine());*/
+			
+			System.out.println("Réponse connexion");
+			Connex connex = Connex.valueOf(client.getIn().readLine());
 
-			/*switch (connex) {
+			switch (connex) {
 			// Le nom et le mot de passe corresponde
-			case OK:*/
+			case OK:
+				Main.ReceiveUserList(client.getInput());
+				client.getOut().println("ME");
+				Main.ReceiveUser(client.getInput());
+				client.getOut().println("OK");
+				Main.ReceiveListTacheAfaire(client.getInput());
+				client.getOut().println("OK");
+				Main.ReceiveListTacheDonnees(client.getInput());
+				
 				Stage stage = null;
 				Parent root = null;
 				stage = (Stage) btn1.getScene().getWindow();
@@ -284,14 +291,14 @@ public class Controller {
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.show();
-				/*break;
+				break;
 			// Le mot de passe ne correspond pas au nom
 			case NOTOK:
 				message.setText("Le mot de passe ou le nom n'est pas le bon");
 				break;
 			default:
 				break;
-			}*/
+			}
 		}
 		
 		// Cliquer sur le bouton pour ajouter une tache
@@ -323,11 +330,11 @@ public class Controller {
 				t.setDescriptif(task_content.getText());
 				int id = 0;
 				
-				if(Main.listeTache.size()==0)
+				if(Main.listeTacheDonnees.size()==0)
 					t.setIdTache(0);
 				else
 				{
-					id = Main.listeTache.get(Main.listeTache.size()-1).getIdTache();			
+					id = Main.listeTacheDonnees.get(Main.listeTacheDonnees.size()-1).getIdTache();			
 					System.out.println(id);
 					t.setIdTache(id+1);
 				}
@@ -340,7 +347,7 @@ public class Controller {
 					if(task_affecte.getSelectionModel().getSelectedItem() == Main.listePersonne.get(i).getNomPersonne())
 						t.setAffecte(Main.listePersonne.get(i));
 				}
-				Main.listeTache.add(t);
+				Main.listeTacheDonnees.add(t);
 				
 				Stage stage = null;
 				Parent root = null;
@@ -367,6 +374,13 @@ public class Controller {
 				switch (connex) {
 				// Le nom et le mot de passe corresponde
 				case OK:
+					Main.ReceiveUserList(client.getInput());
+					client.getOut().println("ME");
+					Main.ReceiveUser(client.getInput());
+					client.getOut().println("OK");
+					Main.ReceiveListTacheAfaire(client.getInput());
+					client.getOut().println("OK");
+					Main.ReceiveListTacheDonnees(client.getInput());
 					Stage stage = null;
 					Parent root = null;
 					stage = (Stage) register.getScene().getWindow();
@@ -422,19 +436,19 @@ public class Controller {
 					Main.tActual.setAffecte(Main.listePersonne.get(i));
 			}
 			
-			for(int j=0 ;j<Main.listeTache.size() ; j++)
+			for(int j=0 ;j<Main.listeTacheAFaire.size() ; j++)
 			{
-				if(Main.tActual.getIdTache() == Main.listeTache.get(j).getIdTache())
-					Main.listeTache.set(j, Main.tActual);
+				if(Main.tActual.getIdTache() == Main.listeTacheAFaire.get(j).getIdTache())
+					Main.listeTacheAFaire.set(j, Main.tActual);
 			}
 			
 			if(Main.tActual.getEtat()=="Terminée")
 			{
-				for(int i=0 ;i<Main.listeTache.size();i++)
+				for(int i=0 ;i<Main.listeTacheAFaire.size();i++)
 				{
-					if(Main.listeTache.get(i).getIdTache() == Main.tActual.getIdTache())
+					if(Main.listeTacheAFaire.get(i).getIdTache() == Main.tActual.getIdTache())
 					{
-						Main.listeTache.remove(i);
+						Main.listeTacheAFaire.remove(i);
 					}
 				}
 			}
