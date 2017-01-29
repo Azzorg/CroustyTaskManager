@@ -20,8 +20,17 @@ public class Tache implements Serializable{
 		setDescriptif(des);
 	}
 	
+	public Tache(String nom, int id, String etat, String priorite, Personne createur, Personne affecte, String des){
+		setNomTache(nom);
+		setIdTache(id);
+		setEtat(etat);
+		setPriorite(priorite);
+		setCreateur(createur);
+		setAffecte(affecte);
+		setDescriptif(des);
+	}
+	
 	public Tache(){
-		
 	}
 
 	/**

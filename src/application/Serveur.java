@@ -20,8 +20,8 @@ public class Serveur {
 
 		try {
 			System.out.println("Création task");
-			Tache t = new Tache("truc", 5, new Personne("a", 1), new Personne("c", 2), "Faire des truc");
-
+			Tache t = new Tache("truc", 5, "A faire", "Haute", new Personne("a", 1), new Personne("c", 2),
+					"Faire des truc");
 			// Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			factory.setNamespaceAware(true);
@@ -35,7 +35,9 @@ public class Serveur {
 			WriterXMLTaskDOM domTask = new WriterXMLTaskDOM();
 
 			System.out.println("Tentative ecriture dans file");
+			System.out.println(t.getDescriptif());
 			domTask.writeTask(t);
+			domTask.removeTask("5");
 
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
@@ -44,14 +46,16 @@ public class Serveur {
 
 				new ActiviteServeur("act", aClient).start();
 			}
-		} catch (IOException | ParserConfigurationException | SAXException e) {
+		} catch (IOException e) {
 			System.out.println("Error connexion");
 			e.printStackTrace();
-		} /*
-			 * catch (SAXException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } catch (ParserConfigurationException e) {
-			 * // TODO Auto-generated catch block e.printStackTrace(); }
-			 */ finally {
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
 			try {
 				welcomeSocket.close();
 			} catch (Exception e) {
