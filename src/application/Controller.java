@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -34,7 +35,7 @@ public class Controller {
 	@FXML
 	protected Text actiontarget;
 	@FXML
-	private TextField password;
+	private PasswordField password;
 	@FXML
 	private Label message;
 	@FXML
@@ -42,7 +43,7 @@ public class Controller {
 	@FXML
 	private TextField username;
 	@FXML
-	private TextField password_repeat;
+	private PasswordField password_repeat;
 	@FXML
 	private Label instruction;
 	@FXML
@@ -114,6 +115,7 @@ public class Controller {
 			// ajout des boutons users
 			for (int i = 0; i < Main.listePersonne.size(); i++) {
 				Button user = new Button(Main.listePersonne.get(i).getNomPersonne());
+				user.setStyle ("-fx-background-color : rgb(25,25,25); -fx-border-radius : 0px;");
 				user.setMaxWidth(Double.MAX_VALUE);
 				user.setMaxHeight(Double.MAX_VALUE);
 				user.setId(Integer.toString(Main.listePersonne.get(i).getIdPersonne()));
@@ -123,7 +125,6 @@ public class Controller {
 					try {
 						System.out.println("Action bouton user");						
 						
-						System.out.println("Initialisation pour recevoir les objets");
 						// on stock la personne cliqué
 						pActual = Main.listePersonne.get(Integer.parseInt(user.getId()));
 						// vide des taches
@@ -134,6 +135,12 @@ public class Controller {
 						client.getOut().println("ACTION\nLIST_TASK\n" + pActual.getIdPersonne());
 						
 						System.out.println("Initialisation pour recevoir les objets");
+						
+						client.setObjOut(new ObjectOutputStream(client.getOutput()));
+						client.getObjOut().flush();
+						client.setObjIn(new ObjectInputStream(client.getInput()));
+						
+						System.out.println("Initialisation faite");
 
 						// Réception de la liste de tache données
 						Main.listeTacheDonnees = (ArrayList<Tache>) client.getObjIn().readObject();
@@ -186,6 +193,7 @@ public class Controller {
 										stage = (Stage) log_out.getScene().getWindow();
 										root = FXMLLoader.load(getClass().getResource("../Interface/edit_page.fxml"));
 										Scene scene = new Scene(root);
+										scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 										stage.setScene(scene);
 										stage.show();
 									} catch (IOException e) {
@@ -240,6 +248,7 @@ public class Controller {
 										stage = (Stage) log_out.getScene().getWindow();
 										root = FXMLLoader.load(getClass().getResource("../Interface/edit_page.fxml"));
 										Scene scene = new Scene(root);
+										scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 										stage.setScene(scene);
 										stage.show();
 									} catch (IOException e) {
@@ -341,6 +350,7 @@ public class Controller {
 				stage = (Stage) btn1.getScene().getWindow();
 				root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
 				Scene scene = new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 				stage.setScene(scene);
 				stage.show();
 				break;
@@ -360,6 +370,7 @@ public class Controller {
 			stage = (Stage) btn2.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("../Interface/task_page.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -403,6 +414,7 @@ public class Controller {
 				stage = (Stage) task_valid.getScene().getWindow();
 				root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
 				Scene scene = new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 				stage.setScene(scene);
 				stage.show();
 			}
@@ -447,6 +459,7 @@ public class Controller {
 					stage = (Stage) register.getScene().getWindow();
 					root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
 					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 					stage.setScene(scene);
 					stage.show();
 					break;
@@ -469,6 +482,7 @@ public class Controller {
 			stage = (Stage) register_page.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("../Interface/register.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -478,6 +492,7 @@ public class Controller {
 			stage = (Stage) log_out.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("../Interface/login.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -513,6 +528,7 @@ public class Controller {
 			stage = (Stage) edit_valid.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("../Interface/accueil.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 		}
