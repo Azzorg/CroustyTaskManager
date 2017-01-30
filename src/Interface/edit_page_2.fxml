@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgb(255,255,255); -fx-border-radius: 0,0,0,0;" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <TextField fx:id="edit_name" layoutX="32.0" layoutY="94.0" prefHeight="54.0" prefWidth="332.0" style="-fx-background-color: transparent; -fx-text-fill: black;">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <Label layoutX="40.0" layoutY="57.0" prefHeight="38.0" prefWidth="324.0" text="Titre de la tache" textFill="#cc4949">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="193.0" prefHeight="38.0" prefWidth="324.0" text="Descriptif de la tache" textFill="#cc4949">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="380.0" prefHeight="38.0" prefWidth="324.0" text="Affecter à" textFill="#cc4949">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="edit_valid" layoutX="431.0" layoutY="610.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="186.0" text="Valider">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="priority" layoutX="41.0" layoutY="493.0" prefHeight="38.0" prefWidth="324.0" text="Priorité" textFill="#cc4949">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="316.0" layoutY="495.0" prefHeight="38.0" prefWidth="186.0" text="Etat" textFill="#cc4949">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="edit_affecte" layoutX="40.0" layoutY="427.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="edit_priority" layoutX="40.0" layoutY="542.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="edit_state" layoutX="316.0" layoutY="542.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <TextArea fx:id="edit_content" layoutX="41.0" layoutY="250.0" prefHeight="126.0" prefWidth="576.0" style="-fx-text-fill: black;" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></TextArea>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="2.0" layoutX="39.0" layoutY="147.0" stroke="#cc4949" strokeType="INSIDE" width="324.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="2.0" layoutX="41.0" layoutY="249.0" stroke="#cc4949" strokeType="INSIDE" width="576.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="2.0" layoutX="41.0" layoutY="375.0" stroke="#cc4949" strokeType="INSIDE" width="576.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="126.0" layoutX="615.0" layoutY="250.0" stroke="#cc4949" strokeType="INSIDE" width="2.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="126.0" layoutX="40.0" layoutY="250.0" stroke="#cc4949" strokeType="INSIDE" width="2.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc4949" height="720.0" layoutX="664.0" stroke="#cc4949" strokeType="INSIDE" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 15, 0, 0, 0)(three-pass-box, derive(cadetblue, -20%), 10, 0, 4, 4);" width="616.0" />
+      <Label layoutX="759.0" layoutY="-29.0" prefHeight="418.0" prefWidth="470.0" text="EDITION DE TACHE" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="84.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="309.0" fitWidth="293.0" layoutX="863.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Files-Edit-File-icon.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -7,9 +7,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="930.0" style="-fx-background-color: rgb(255,255,255); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<GridPane id="task_bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="930.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive(cadetblue, -20%), 10, 0, 4, 4);" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="0.0" prefWidth="43.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="279.0" />
@@ -24,12 +25,15 @@
       <RowConstraints maxHeight="181.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="name" alignment="TOP_LEFT" prefHeight="43.0" prefWidth="257.0" style="-fx-text-alignment: center;" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+      <Label fx:id="name" alignment="TOP_LEFT" prefHeight="43.0" prefWidth="257.0" style="-fx-text-alignment: center; -fx-underline: true;" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT">
          <font>
-            <Font name="System Bold" size="29.0" />
+            <Font name="Arial Bold" size="29.0" />
          </font>
       </Label>
-      <TextArea prefHeight="148.0" prefWidth="549.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <TextArea prefHeight="148.0" prefWidth="472.0" style="-fx-background-color: rgb(25,25,25;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></TextArea>
       <Label fx:id="creator" text="Label" GridPane.columnIndex="2" GridPane.halignment="LEFT">
          <font>
             <Font size="17.0" />
@@ -38,13 +42,7 @@
             <Insets top="8.0" />
          </GridPane.margin>
       </Label>
-      <Label prefHeight="40.0" prefWidth="362.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Button mnemonicParsing="false" text="Edit" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Label prefHeight="40.0" prefWidth="362.0" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <Label prefHeight="40.0" prefWidth="362.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="28.0" />
          </font>
@@ -52,5 +50,38 @@
             <Insets left="50.0" />
          </GridPane.margin>
       </Label>
+      <Button id="edit_button" mnemonicParsing="false" text="Edit" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+      <Label prefHeight="40.0" prefWidth="198.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="2.0" stroke="WHITE" strokeType="INSIDE" width="486.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="2.0" stroke="WHITE" strokeType="INSIDE" width="486.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="WHITE" strokeType="INSIDE" width="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="WHITE" strokeType="INSIDE" width="2.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="27.0" />
+         </GridPane.margin>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="RED" strokeType="INSIDE" width="2.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" stroke="RED" strokeType="INSIDE" width="2.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="2.0" stroke="RED" strokeType="INSIDE" width="300.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="2.0" stroke="RED" strokeType="INSIDE" width="300.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </Rectangle>
    </children>
 </GridPane>

@@ -5,49 +5,71 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgb(255,255,255); -fx-border-radius: 0,0,0,0;" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <TextField fx:id="task_name" layoutX="178.0" layoutY="78.0" prefHeight="49.0" prefWidth="324.0">
+      <TextField fx:id="task_name" layoutX="674.0" layoutY="116.0" prefHeight="54.0" prefWidth="332.0" style="-fx-background-color: transparent; -fx-text-fill: black;">
          <font>
             <Font size="25.0" />
          </font>
       </TextField>
-      <Label layoutX="178.0" layoutY="41.0" prefHeight="38.0" prefWidth="324.0" text="Titre de la tache">
+      <Label layoutX="682.0" layoutY="79.0" prefHeight="38.0" prefWidth="324.0" text="Titre de la tache" textFill="#2c1089">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="178.0" layoutY="177.0" prefHeight="38.0" prefWidth="324.0" text="Descriptif de la tache">
+      <Label layoutX="682.0" layoutY="215.0" prefHeight="38.0" prefWidth="324.0" text="Descriptif de la tache" textFill="#2c1089">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="178.0" layoutY="364.0" prefHeight="38.0" prefWidth="324.0" text="Affecter à">
+      <Label layoutX="682.0" layoutY="402.0" prefHeight="38.0" prefWidth="324.0" text="Affecter à" textFill="#2c1089">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="task_valid" layoutX="829.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="186.0" text="Valider">
+      <Button fx:id="task_valid" layoutX="1073.0" layoutY="632.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="186.0" text="Valider">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label fx:id="priority" layoutX="179.0" layoutY="477.0" prefHeight="38.0" prefWidth="324.0" text="Priorité">
+      <Label fx:id="priority" layoutX="683.0" layoutY="515.0" prefHeight="38.0" prefWidth="324.0" text="Priorité" textFill="#2c1089">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="454.0" layoutY="479.0" prefHeight="38.0" prefWidth="186.0" text="Etat">
+      <Label layoutX="958.0" layoutY="517.0" prefHeight="38.0" prefWidth="186.0" text="Etat" textFill="#2c1089">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ComboBox fx:id="task_affecte" layoutX="178.0" layoutY="411.0" prefHeight="25.0" prefWidth="186.0" />
-      <ComboBox fx:id="task_priority" layoutX="178.0" layoutY="526.0" prefHeight="25.0" prefWidth="186.0" />
-      <ComboBox fx:id="task_state" layoutX="454.0" layoutY="526.0" prefHeight="25.0" prefWidth="186.0" />
-      <TextArea fx:id="task_content" layoutX="179.0" layoutY="234.0" prefHeight="126.0" prefWidth="576.0" />
+      <ComboBox fx:id="task_affecte" layoutX="682.0" layoutY="449.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="task_priority" layoutX="682.0" layoutY="564.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="task_state" layoutX="958.0" layoutY="564.0" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: white;" />
+      <TextArea fx:id="task_content" layoutX="683.0" layoutY="272.0" prefHeight="126.0" prefWidth="576.0" style="-fx-text-fill: black;" stylesheets="@style.css" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></TextArea>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" layoutX="681.0" layoutY="169.0" stroke="#2c1089" strokeType="INSIDE" width="324.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" layoutX="683.0" layoutY="271.0" stroke="#2c1089" strokeType="INSIDE" width="576.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" layoutX="683.0" layoutY="397.0" stroke="#2c1089" strokeType="INSIDE" width="576.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="126.0" layoutX="1257.0" layoutY="272.0" stroke="#2c1089" strokeType="INSIDE" width="2.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="126.0" layoutX="682.0" layoutY="272.0" stroke="#2c1089" strokeType="INSIDE" width="2.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2c1089" height="720.0" stroke="#2c1089" strokeType="INSIDE" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 15, 0, 0, 0)(three-pass-box, derive(cadetblue, -20%), 10, 0, 4, 4);" width="616.0" />
+      <Label layoutX="86.0" layoutY="300.0" prefHeight="418.0" prefWidth="470.0" text="CREATION DE TACHE" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="84.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="266.0" fitWidth="266.0" layoutX="175.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@UI_Icons_Outline-05-512.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

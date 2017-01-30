@@ -1,0 +1,122 @@
+#left_side
+{
+	-fx-background-color : rgb(25,25,25);
+	-fx-border-width: 2px;
+}
+#vbox_l
+{
+	-fx-background-color : rgb(25,25,25);
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+#scroll
+{
+	-fx-background-color : rgb(25,25,25);
+	-fx-border-color:rgb(20,20,20);
+	/*-fx-border-width: 1px;*/
+}
+#users
+{
+	-fx-background-color : rgb(25,25,25);
+}
+.scroll-bar{
+	-fx-background-color: transparent;
+}
+.scroll-bar .increment-button {
+  visibility: hidden;
+}
+.scroll-bar .decrement-button {
+  visibility: hidden;
+}
+.scroll-bar .thumb {
+  -fx-background-color: rgb(50,50,50);
+}
+
+#fond{
+-fx-background-color : rgb(25,25,25);
+}
+
+#add_button
+{
+	-fx-background-color : rgb(25,25,25);
+	-fx-border-color:rgb(20,20,20);
+	-fx-border-width: 2px;
+	-fx-inner-text-color:rgb(255,255,255);
+}
+#add_button:hover
+{
+	-fx-background-color : rgb(40,40,40);
+	-fx-border-radius : 0;
+}
+#my_button
+{
+	-fx-background-color : rgb(25,25,25); 
+	-fx-border-radius : 0px;
+}
+
+#l_side
+{
+
+}
+
+#task_bg
+{
+	-fx-background-color: rgb(255,255,255);
+	-fx-effect: dropshadow(three-pass-box, derive(cadetblue, -20%), 10, 0, 4, 4); 
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane {
+  -fx-tab-min-width:523px;
+  -fx-tab-max-width:523px;
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+  -fx-background-color : rgb(25,25,25); 
+  
+}
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18;
+  -fx-background-color:rgb(25,25,25) ;
+  
+  -fx-border-radius : 0 0 0 0;
+  -fx-background-radius : 0 0 0 0;
+
+}
+.tab:hover {
+	-fx-background-color : rgb(50,50,50);
+}
+.tab-pane .tab:selected
+{
+    -fx-background-color: rgb(238,239,243);
+	-fx-focus-color: transparent;
+	-fx-focus-color: transparent;
+}
+.root { -fx-focus-color: transparent; }
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:horizontal:disabled {
+    -fx-opacity: 0;
+}
+
+
+
