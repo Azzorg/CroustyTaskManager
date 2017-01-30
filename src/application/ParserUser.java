@@ -51,7 +51,7 @@ public class ParserUser extends DefaultHandler {
 	public Personne getPersonneByName(String name){
 		List<Personne> list = getListUser();
 		for(Personne p : list){
-			if(p.getNomPersonne() == name)
+			if(p.getNomPersonne().equals(name))
 				return p;
 		}
 		return null;

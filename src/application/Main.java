@@ -96,7 +96,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 
-		me = p0;
+		//me = p0;
 
 		/*
 		 * listePersonne.add(p0); listePersonne.add(p1); listePersonne.add(p2);

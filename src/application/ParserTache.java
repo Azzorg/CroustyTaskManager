@@ -41,14 +41,17 @@ public class ParserTache extends DefaultHandler {
 	 * @param id
 	 * @return
 	 */
-	public List<Tache> getListTacheCreateurById(int id){
-		List<Tache> listTache = new ArrayList<>();
+	public ArrayList<Tache> getListTacheCreateurById(int id){
+		ArrayList<Tache> listTache =  new ArrayList<>();
 		List<Tache> list = getListTache();
 		
 		for(Tache task : list){
 			if(task.getCreateur().getIdPersonne() == id)
 				listTache.add(task);
 		}
+		
+		if(listTache.size() == 0)
+			return null;
 		
 		return listTache;
 	}

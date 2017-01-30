@@ -22,6 +22,8 @@ public class Client {
 	private OutputStream output;
 	private BufferedReader in;
 	private PrintStream out;
+	private ObjectInputStream objIn;
+	private ObjectOutputStream objOut;
 	private static ArrayList<Personne> listUser = new ArrayList<>();
 
 	/**
@@ -202,7 +204,35 @@ public class Client {
 		return input;
 	}
 	
+	public OutputStream getOutput(){
+		return output;
+	}
+	
 	public PrintStream getOut(){
 		return out;
+	}
+
+
+
+	public ObjectInputStream getObjIn() {
+		return objIn;
+	}
+
+
+
+	public void setObjIn(ObjectInputStream objIn) {
+		this.objIn = objIn;
+	}
+
+
+
+	public ObjectOutputStream getObjOut() {
+		return objOut;
+	}
+
+
+
+	public void setObjOut(ObjectOutputStream objOut) {
+		this.objOut = objOut;
 	}
 }
