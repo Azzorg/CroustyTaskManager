@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
 	<Tache>
-		<idTache>3</idTache>
+		<idTache>0</idTache>
 		<nomTache>truc</nomTache>
 		<createur>0</createur>
 		<affecte>1</affecte>

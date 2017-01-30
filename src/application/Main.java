@@ -95,16 +95,6 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-
-		//me = p0;
-
-		/*
-		 * listePersonne.add(p0); listePersonne.add(p1); listePersonne.add(p2);
-		 */
-
-		/*
-		 * listeTache.add(t0); listeTache.add(t1); listeTache.add(t2);
-		 */
 		launch(args);
 	}
 }

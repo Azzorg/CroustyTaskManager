@@ -10,4 +10,9 @@
 		<nomUser>a</nomUser>
 		<passWord>0cc175b9c0f1b6a831c399e269772661</passWord>
 	</user>
+	<user>
+		<idUser>1</idUser>
+		<nomUser>c</nomUser>
+		<passWord>4a8a08f09d37b73795649038408b5f33</passWord>
+	</user>
 </root>

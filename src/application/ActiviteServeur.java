@@ -187,7 +187,7 @@ public class ActiviteServeur extends Thread {
 					if (handlerSAX.nameExist(nom))
 						out.println("CONNEXION\nNOTOK");
 					else {
-						me = new Personne(handlerSAX.getListUser().get(handlerSAX.getListUser().size()-1).getIdPersonne(), nom, pass);
+						me = new Personne(handlerSAX.getListUser().get(handlerSAX.getListUser().size()-1).getIdPersonne()+1, nom, pass);
 						domUser.writeUser(me);
 						out.println("CONNEXION\nOK");
 						isConnected = true;

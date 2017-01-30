@@ -17,13 +17,13 @@ import java.util.ArrayList;
 public class Client {
 	final public int PORT = 1501;
 
-	private static Socket aClient;
+	public static Socket aClient;
 	private InputStream input;
 	private OutputStream output;
 	private BufferedReader in;
 	private PrintStream out;
-	private ObjectInputStream objIn;
-	private ObjectOutputStream objOut;
+	private ObjectInputStream objIn = null;
+	private ObjectOutputStream objOut = null;
 	private static ArrayList<Personne> listUser = new ArrayList<>();
 
 	/**
@@ -104,7 +104,9 @@ public class Client {
 			this.output = aClient.getOutputStream();
 			this.setIn(new BufferedReader(new InputStreamReader(input)));
 			this.out = new PrintStream(output);
-
+			/*this.objOut = new ObjectOutputStream(output);
+			getObjOut().flush();
+			this.objIn = new ObjectInputStream(input);*/
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

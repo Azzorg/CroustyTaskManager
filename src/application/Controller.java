@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 
 public class Controller {
 	Client client = new Client();
+	
+	private ObjectInputStream objInput = null;
+	private ObjectOutputStream objOutput = null;
 
 	private enum Connex {
 		OK, NOTOK;
@@ -100,13 +103,16 @@ public class Controller {
 
 	@SuppressWarnings("unchecked")
 	@FXML
-	protected void initialize() { // Document FXML chargé
+	// Document FXML chargé
+	protected void initialize() throws IOException {
 		client.connexionServer();
-
-		if (vb1 != null) { // On est dans la page accueil
-			for (int i = 0; i < Main.listePersonne.size(); i++) { // ajout des
-																	// boutons
-																	// users
+		System.out.println("Initialisation pour les objects");
+		
+		// On est dans la page accueil
+		if (vb1 != null) {
+			System.out.println("Page d'accueil");
+			// ajout des boutons users
+			for (int i = 0; i < Main.listePersonne.size(); i++) {
 				Button user = new Button(Main.listePersonne.get(i).getNomPersonne());
 				user.setMaxWidth(Double.MAX_VALUE);
 				user.setMaxHeight(Double.MAX_VALUE);
@@ -115,9 +121,11 @@ public class Controller {
 				// Action sur le bouton user
 				user.addEventHandler(ActionEvent.ACTION, event -> {
 					try {
-						client.setObjIn(new ObjectInputStream(client.getInput()));
-						client.setObjOut(new ObjectOutputStream(client.getOutput()));
-						pActual = Main.listePersonne.get(Integer.parseInt(user.getId())); // on stock la personne cliqué
+						System.out.println("Action bouton user");						
+						
+						System.out.println("Initialisation pour recevoir les objets");
+						// on stock la personne cliqué
+						pActual = Main.listePersonne.get(Integer.parseInt(user.getId()));
 						// vide des taches
 						todo_task.getChildren().clear();
 						created_task.getChildren().clear();
@@ -125,14 +133,18 @@ public class Controller {
 						// Envoie de demande de liste des taches
 						client.getOut().println("ACTION\nLIST_TASK\n" + pActual.getIdPersonne());
 						
-						//Réception de la liste de tache données
+						System.out.println("Initialisation pour recevoir les objets");
+
+						// Réception de la liste de tache données
 						Main.listeTacheDonnees = (ArrayList<Tache>) client.getObjIn().readObject();
-						
+						System.out.println(Main.listeTacheDonnees);
+
 						client.getOut().println("OK");
-						
-						//Réception de la liste de tache à faire
+
+						// Réception de la liste de tache à faire
 						Main.listeTacheAFaire = (ArrayList<Tache>) client.getObjIn().readObject();
-						
+						System.out.println(Main.listeTacheAFaire);
+
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -141,17 +153,12 @@ public class Controller {
 						e1.printStackTrace();
 					}
 
-					for (int j = 0; j < Main.listeTacheAFaire.size(); j++)// ajout des taches à faire
-					{
+					// ajout des taches à faire
+					for (int j = 0; j < Main.listeTacheAFaire.size(); j++) {
 						try {
 							if (Main.listeTacheAFaire.get(j).getAffecte().getIdPersonne() == pActual.getIdPersonne()) {
-								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement
-																													// du
-																													// document
-																													// FXML
-																													// pour
-																													// les
-																													// taches
+								// Chargement du document FXML pour les taches
+								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
 								task.setId(Integer.toString(Main.listeTacheAFaire.get(j).getIdTache()));
 
 								((Label) task.getChildren().get(0)).setText(Main.listeTacheAFaire.get(j).getNomTache());
@@ -163,12 +170,9 @@ public class Controller {
 										"Crée par : " + Main.listeTacheAFaire.get(j).getCreateur().getNomPersonne());
 								((Label) task.getChildren().get(5))
 										.setText("Priorité : " + Main.listeTacheAFaire.get(j).getPriorite());
-								((Button) task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 -> // action
-																													// sur
-																													// le
-																													// bouton
-																													// edit
-								{
+
+								// action sur le bouton edit
+								((Button) task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 -> {
 									for (int k = 0; k < Main.listeTacheAFaire.size(); k++) {
 										if (Integer.parseInt(task.getId()) == Main.listeTacheAFaire.get(k).getIdTache())
 											Main.tActual = Main.listeTacheAFaire.get(k);
@@ -201,19 +205,13 @@ public class Controller {
 							e.printStackTrace();
 						}
 					}
-
-					for (int j = 0; j < Main.listeTacheDonnees.size(); j++) // ajout
-																			// des
-																			// taches
-																			// crées
-					{
+					// ajout des taches crées
+					for (int j = 0; j < Main.listeTacheDonnees.size(); j++) {
 						try {
 							if (Main.listeTacheDonnees.get(j).getCreateur().getIdPersonne() == pActual
 									.getIdPersonne()) {
-								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml")); // Chargement
-																													// du
-																													// document
-																													// FXML
+								// Chargement du document FXML
+								GridPane task = FXMLLoader.load(getClass().getResource("../Interface/task.fxml"));
 								task.setId(Integer.toString(Main.listeTacheDonnees.get(j).getIdTache()));
 								((Label) task.getChildren().get(0))
 										.setText(Main.listeTacheDonnees.get(j).getNomTache());
@@ -225,12 +223,8 @@ public class Controller {
 										"Affectée à : " + Main.listeTacheDonnees.get(j).getAffecte().getNomPersonne());
 								((Label) task.getChildren().get(5))
 										.setText("Priorité : " + Main.listeTacheDonnees.get(j).getPriorite());
-								((Button) task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 -> // action
-																													// sur
-																													// le
-																													// bouton
-																													// edit
-								{
+								// action sur le bouton edit
+								((Button) task.getChildren().get(4)).addEventHandler(ActionEvent.ACTION, event_2 -> {
 
 									for (int k = 0; k < Main.listeTacheDonnees.size(); k++) {
 										if (Integer.parseInt(task.getId()) == Main.listeTacheDonnees.get(k)
@@ -310,8 +304,7 @@ public class Controller {
 		if (event.getSource() == btn1) {
 			System.out.println("username : " + userName.getText());
 			System.out.println("pw : " + password.getText());
-			client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText())); // à
-																								// désélectionner
+			client.sendUserConnexionNotNew(userName.getText(), client.md5(password.getText()));
 			System.out.println("Demande connexion");
 
 			// Attente réponse
