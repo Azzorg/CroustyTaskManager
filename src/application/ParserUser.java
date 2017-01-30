@@ -31,7 +31,6 @@ public class ParserUser extends DefaultHandler {
 	}
 	
 	public boolean correspondanceNamePassword(String name, String pass){
-		
 		List<Personne> list = getListUser();
 		for(Personne p : list){
 			if(p.getNomPersonne().equals(name) && p.getPassWord().equals(pass))
@@ -44,6 +43,15 @@ public class ParserUser extends DefaultHandler {
 		List<Personne> list = getListUser();
 		for(Personne p : list){
 			if(p.getIdPersonne() == id)
+				return p;
+		}
+		return null;
+	}
+	
+	public Personne getPersonneByName(String name){
+		List<Personne> list = getListUser();
+		for(Personne p : list){
+			if(p.getNomPersonne() == name)
 				return p;
 		}
 		return null;

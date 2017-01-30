@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+	<Tache>
+		<idTache>3</idTache>
+		<nomTache>truc</nomTache>
+		<createur>1</createur>
+		<affecte>2</affecte>
+		<priorite>Haute</priorite>
+		<etat>A faire</etat>
+		<descriptif>Faire des trucs </descriptif>
+	</Tache>
+</root>

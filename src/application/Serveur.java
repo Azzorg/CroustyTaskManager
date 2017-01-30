@@ -14,11 +14,12 @@ public class Serveur {
 	final public int PORT = 1501; // Numéro du port utilisé
 
 	public static void main(String[] Args) {
-		System.out.println("Début server");
+		System.out.println("Lancement serveur");
 		Serveur serveur = new Serveur();
 		ServerSocket welcomeSocket = null;
 
 		try {
+<<<<<<< HEAD
 			/*System.out.println("Création task");
 			Tache t = new Tache("truc", 5, new Personne("a", 1), new Personne("c", 2), "Faire des truc");
 
@@ -37,27 +38,27 @@ public class Serveur {
 			System.out.println("Tentative ecriture dans file");
 			domTask.writeTask(t);*/
 
+=======
+>>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
-				System.out.println("Attente du client...");
 				Socket aClient = welcomeSocket.accept(); // Attente du client
-
 				new ActiviteServeur("act", aClient).start();
 			}
+<<<<<<< HEAD
 		} catch (IOException /*| ParserConfigurationException | SAXException*/ e) {
+=======
+		} catch (IOException e) {
+>>>>>>> branch 'master' of https://github.com/Azzorg/CroustyTaskManager.git
 			System.out.println("Error connexion");
 			e.printStackTrace();
-		} /*
-			 * catch (SAXException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } catch (ParserConfigurationException e) {
-			 * // TODO Auto-generated catch block e.printStackTrace(); }
-			 */ finally {
+		} finally {
 			try {
+				System.out.println("Fermeture socket serveur");
 				welcomeSocket.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-
 		}
 	}
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
       <SplitPane dividerPositions="0.15101721439749607" layoutX="318.0" layoutY="255.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -33,13 +33,13 @@
                <children>
                   <TabPane layoutX="189.0" layoutY="136.0" prefHeight="718.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab text="Tâches à faire">
+                      <Tab text="Tâches crées">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <ScrollPane layoutX="1.0" layoutY="-2.0" prefHeight="691.0" prefWidth="998.0">
                                        <content>
-                                          <VBox fx:id="todo_task" prefHeight="690.0" prefWidth="965.0" spacing="30.0">
+                                          <VBox fx:id="created_task" prefHeight="705.0" prefWidth="981.0" spacing="50.0">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -51,13 +51,13 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Tâches données">
+                      <Tab text="Tâches à faire">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <ScrollPane prefHeight="691.0" prefWidth="998.0">
                                        <content>
-                                          <VBox fx:id="given_task" prefHeight="705.0" prefWidth="981.0" spacing="50.0">
+                                          <VBox fx:id="todo_task" prefHeight="705.0" prefWidth="981.0" spacing="50.0">
                                              <padding>
                                                 <Insets left="20.0" right="20.0" top="20.0" />
                                              </padding></VBox>
