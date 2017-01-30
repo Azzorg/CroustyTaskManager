@@ -19,7 +19,7 @@ public class Serveur {
 		ServerSocket welcomeSocket = null;
 
 		try {
-			System.out.println("Création task");
+			/*System.out.println("Création task");
 			Tache t = new Tache("truc", 5, new Personne("a", 1), new Personne("c", 2), "Faire des truc");
 
 			// Initialisation du parser XML pour le document user.xml
@@ -35,7 +35,7 @@ public class Serveur {
 			WriterXMLTaskDOM domTask = new WriterXMLTaskDOM();
 
 			System.out.println("Tentative ecriture dans file");
-			domTask.writeTask(t);
+			domTask.writeTask(t);*/
 
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
@@ -44,7 +44,7 @@ public class Serveur {
 
 				new ActiviteServeur("act", aClient).start();
 			}
-		} catch (IOException | ParserConfigurationException | SAXException e) {
+		} catch (IOException /*| ParserConfigurationException | SAXException*/ e) {
 			System.out.println("Error connexion");
 			e.printStackTrace();
 		} /*
