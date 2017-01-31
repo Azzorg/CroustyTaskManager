@@ -32,6 +32,20 @@ public class Tache implements Serializable{
 	
 	public Tache(){
 	}
+	
+	/**
+	 * toString de Tache
+	 * idTache
+	 * nomTache
+	 * etat
+	 * priorite
+	 * descriptif
+	 * affecte
+	 * createur
+	 */
+	public String toString(){
+		return (this.getIdTache() + "§" + this.getNomTache() + "§" + this.getEtat() + "§" + this.getPriorite() + "§" + this.getDescriptif() + "§" + this.getAffecte().toString() + "§" + this.getCreateur().toString());
+	}
 
 	/**
 	 * Getter de la personne qui a créé la tache

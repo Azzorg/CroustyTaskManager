@@ -50,54 +50,35 @@ public class ActiviteServeur extends Thread {
 	 * @param listUser
 	 *            : List<Personne>
 	 * @param out
-	 *            : OutputStream
+	 *            : PrintStream
 	 */
-	public void SendUserList(List<Personne> listUser, OutputStream out) {
-		try {
-			ObjectOutputStream userObj = new ObjectOutputStream(out);
-			userObj.writeObject(listUser);
-			userObj.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void SendUserList(List<Personne> listUser, PrintStream out) {
+		for (Personne p : listUser)
+			out.println(p);
 	}
 	
-	public void SendUser(Personne me, OutputStream out){
-		try {
-			ObjectOutputStream userObj = new ObjectOutputStream(out);
-			userObj.writeObject(me);
-			userObj.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	/**
+	 * Envoi d'un user
+	 * @param me
+	 * @param p
+	 */
+	public void SendUser(Personne pers, PrintStream p){
+		p.println(pers.toString());
 	}
 	
-	public void SendListTaskToDo(Personne p, OutputStream out){
-		try {
-			ParserTache parser = new ParserTache();
-			List <Tache> list = parser.getListTacheAffecteById(p.getIdPersonne());
-			ObjectOutputStream userObj = new ObjectOutputStream(out);
-			userObj.writeObject(list);
-			userObj.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void SendListTaskToDo(int id, PrintStream out){
+		ParserTache parser = new ParserTache();
+		List <Tache> list = parser.getListTacheAffecteById(id);
+		for(Tache t : list)
+			out.println(t);
 	}
 	
-	public void SendListTaskGiven(Personne p, OutputStream out){
-		try {
-			ParserTache parser = new ParserTache();
-			List <Tache> list = parser.getListTacheCreateurById(p.getIdPersonne());
-			ObjectOutputStream userObj = new ObjectOutputStream(out);
-			userObj.writeObject(list);
-			userObj.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void SendListTaskGiven(int id, PrintStream out){
+		ParserTache parser = new ParserTache();
+		List <Tache> list = parser.getListTacheCreateurById(id);
+		
+		for(Tache t : list)
+			out.println(t);
 	}
 
 	/**
@@ -106,16 +87,17 @@ public class ActiviteServeur extends Thread {
 	 *            : InputStream
 	 * @return
 	 */
-	public Personne ReceiveNewUser(InputStream in) {
+	public Personne ReceiveNewUser(BufferedReader in) {
 		Personne user = null;
-		ObjectInputStream userObj;
 		try {
-			userObj = new ObjectInputStream(in);
-			user = (Personne) userObj.readObject();
-		} catch (IOException e) {
+			String [] sp = in.readLine().split("§");
+			user.setIdPersonne(Integer.parseInt(sp[0]));
+			user.setNomPersonne(sp[1]);
+			user.setPassWord(sp[2]);
+		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -142,9 +124,6 @@ public class ActiviteServeur extends Thread {
 			InputStream input = clientSocket.getInputStream();
 			BufferedReader in = new BufferedReader(new InputStreamReader(input));
 			PrintStream out = new PrintStream(output);
-			ObjectOutputStream objOut = new ObjectOutputStream(output);
-			//objOut.flush();
-			ObjectInputStream objIn = new ObjectInputStream(input);
 
 			// Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -222,19 +201,19 @@ public class ActiviteServeur extends Thread {
 
 			// Récupération de tous les users dans le
 			List<Personne> listUser = handlerSAX.getListUser();
+			
 			// Send the user list
-			SendUserList(listUser, output);
+			SendUserList(listUser, out);
 			
 			System.out.println("envoi 1 fait : " + listUser.size());
 			
 			while(!in.readLine().equals("ME"))
 				System.out.println("Attente client");
 
-			//Thread.sleep(1000);
 			System.out.println("ME reçu");
 			
 			//Envoi de la personne connectée
-			SendUser(me, output);
+			SendUser(me, out);
 			
 			System.out.println("envoi 2 fait");
 			
@@ -250,7 +229,7 @@ public class ActiviteServeur extends Thread {
 				out.println("LISTEAFAIRE\nENVOI");
 				while(!in.readLine().equals("OK"))
 					System.out.println("attente du client");
-				SendListTaskToDo(me, output);
+				SendListTaskToDo(me.getIdPersonne(), out);
 			}
 			
 			
@@ -264,7 +243,7 @@ public class ActiviteServeur extends Thread {
 				out.println("LISTECREEE\nENVOI");
 				while(!in.readLine().equals("OK"))
 					System.out.println("attente du client");
-				SendListTaskGiven(me, output);
+				SendListTaskGiven(me.getIdPersonne(), out);
 			}
 			
 			while(!in.readLine().equals("OK"))
@@ -295,20 +274,20 @@ public class ActiviteServeur extends Thread {
 					System.out.println("list ache");
 					int idPers = Integer.parseInt(in.readLine());
 					System.out.println("Envoie liste des taches" + idPers);
+					
 					//Envoie de la liste createur
-					objOut.writeObject(taskXML.getListTacheCreateurById(idPers));
+					SendListTaskGiven(idPers, out);
 					System.out.println("Envoi OK 1 ");
-					objOut.flush();
-					System.out.println("Attente ///");
+					
 					//Attente de la bonne réception du client
 					while(!in.readLine().equals("OK"))
 						System.out.println("Attente du client");
 					System.out.println("Attente OK");
+					
 					//Attente de la liste affecte
 					System.out.println("Envpi 2 ");
-					objOut.writeObject(taskXML.getListTacheAffecteById(idPers));
+					SendListTaskToDo(idPers, out);
 					System.out.println("envoi 2 ok");
-					objOut.flush();
 					break;
 					
 				//Suppression d'une tache 

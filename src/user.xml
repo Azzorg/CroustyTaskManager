@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
 	<user>
 		<idUser>0</idUser>
 		<nomUser>Camille</nomUser>
@@ -10,8 +11,13 @@
 		<passWord>0cc175b9c0f1b6a831c399e269772661</passWord>
 	</user>
 	<user>
-		<idUser>1</idUser>
+		<idUser>2</idUser>
 		<nomUser>c</nomUser>
 		<passWord>4a8a08f09d37b73795649038408b5f33</passWord>
 	</user>
-<user><idUser>2</idUser><nomUser/><passWord>d41d8cd98f00b204e9800998ecf8427e</passWord></user><user><idUser>3</idUser><nomUser>Kais</nomUser><passWord>873ebbec5a4cfdb682cff13420e93438</passWord></user></root>
+	<user>
+		<idUser>3</idUser>
+		<nomUser>Kais</nomUser>
+		<passWord>873ebbec5a4cfdb682cff13420e93438</passWord>
+	</user>
+</root>

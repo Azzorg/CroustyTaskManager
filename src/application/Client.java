@@ -22,44 +22,72 @@ public class Client {
 	private OutputStream output;
 	private BufferedReader in;
 	private PrintStream out;
-	private ObjectInputStream objIn;
-	private ObjectOutputStream objOut;
-	private static ArrayList<Personne> listUser = new ArrayList<>();
+	private Personne me = new Personne();
+	
+	public ArrayList<Personne> listPersonne = new ArrayList<Personne>();
+	public ArrayList<Tache> listeTacheAFaire = new ArrayList<Tache>();
+	public ArrayList<Tache> listeTacheDonnees = new ArrayList<Tache>();
 
 	/**
 	 * To receive the users list Modify the ArrayList<Personne>
 	 * 
-	 * @param in
-	 *            : InputStream
+	 * @param c
+	 *            : Client
 	 */
-	@SuppressWarnings("unchecked")
-	public void ReceiveUserList(InputStream in) {
+	public void ReceiveUserList() {
+		String rec;
+		Personne act;
+		String [] sp = null;
+		Personne p = null;
+		this.listPersonne.clear();
 		try {
-			System.out.println("Début receive user list");
-			ObjectInputStream userObj = new ObjectInputStream(in);
-
-			System.out.println("new");
-			setListUser(((ArrayList<Personne>) userObj.readObject()));
-			System.out.println("readobject");
-			userObj.close();
+			while((rec = this.getIn().readLine()) != null){
+				
+				System.out.println(rec);
+				p = new Personne();
+				sp = rec.split("§");
+				this.listPersonne.add(p);
+				act = this.listPersonne.get(this.listPersonne.size()-1);
+				act.setIdPersonne(Integer.parseInt(sp[0]));
+				act.setNomPersonne(sp[1]);
+				act.setPassWord(sp[2]);
+			}
+			System.out.println("list user : " + listPersonne.size());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Tache> ReceiveListTache(Client c) throws IOException, ClassNotFoundException{
-		ObjectInputStream userObj = new ObjectInputStream(c.getInput());
+	public ArrayList<Tache> ReceiveListTache() {
 		ArrayList<Tache> list = new ArrayList<Tache>();
-		System.out.println(c);
-		list = (ArrayList<Tache>) userObj.readObject();
-		userObj.close();
-		System.out.println("truc");
-		
+		Tache t = null;
+		Tache act = null;
+		String [] sp = null;
+		String rec;
+		try {
+			while((rec = this.getIn().readLine()) != null){
+				t = new Tache();
+				sp = rec.split("§");
+				list.add(t);
+				act = list.get(list.size()-1);
+				act.setIdTache(Integer.parseInt(sp[0]));
+				act.setNomTache(sp[1]);
+				act.setEtat(sp[2]);
+				act.setPriorite(sp[3]);
+				act.setDescriptif(sp[4]);
+				act.getAffecte().setIdPersonne(Integer.parseInt(sp[5]));
+				act.getAffecte().setNomPersonne(sp[6]);
+				act.getAffecte().setPassWord(sp[7]);
+				act.getCreateur().setIdPersonne(Integer.parseInt(sp[8]));
+				act.getCreateur().setNomPersonne(sp[9]);
+				act.getCreateur().setPassWord(sp[9]);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 	
@@ -73,16 +101,8 @@ public class Client {
 	 * @param out
 	 *            : OutputStream
 	 */
-	public void SendUser(Personne p, OutputStream out) {
-		try {
-			ObjectOutputStream userTosend = new ObjectOutputStream(out);
-			userTosend.writeObject(p);
-			userTosend.flush();
-			userTosend.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+	public void SendUser(Personne p, PrintStream out) {
+		out.println(p);
 	}
 
 	/**
@@ -122,9 +142,6 @@ public class Client {
 			this.setOutput(aClient.getOutputStream());
 			this.setIn(new BufferedReader(new InputStreamReader(input)));
 			this.setOut(new PrintStream(output));
-			this.setObjOut(new ObjectOutputStream(output));
-			//getObjOut().flush();
-			this.setObjIn(new ObjectInputStream(input));
 			System.out.println("Connection");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -167,8 +184,8 @@ public class Client {
 	 * 
 	 * @return listUser : ArrayList<Personne>
 	 */
-	public static ArrayList<Personne> getListUser() {
-		return listUser;
+	public ArrayList<Personne> getListUser() {
+		return listPersonne;
 	}
 
 	/**
@@ -177,8 +194,8 @@ public class Client {
 	 * @param listUser
 	 *            : ArrayList<Personne>
 	 */
-	public static void setListUser(ArrayList<Personne> listUser) {
-		Client.listUser = listUser;
+	public void setListUser(ArrayList<Personne> listUser) {
+		this.listPersonne = listUser;
 	}
 	
 	public InputStream getInput(){
@@ -206,22 +223,11 @@ public class Client {
 		out = s;
 	}
 
-	public ObjectInputStream getObjIn() throws IOException {
-		//objIn.close();
-		objIn = new ObjectInputStream(input);
-		return objIn;
+	public Personne getMe() {
+		return me;
 	}
 
-	public void setObjIn(ObjectInputStream objIn) {
-		this.objIn = objIn;
-	}
-
-	public ObjectOutputStream getObjOut() throws IOException {
-		objOut = new ObjectOutputStream(getOutput());
-		return objOut;
-	}
-
-	public void setObjOut(ObjectOutputStream objOut) {
-		this.objOut = objOut;
+	public void setMe(Personne me) {
+		this.me = me;
 	}
 }

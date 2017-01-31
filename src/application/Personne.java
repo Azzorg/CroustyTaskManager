@@ -35,6 +35,10 @@ public class Personne implements Serializable{
 		this(-1, "", "");
 	}
 	
+	
+	public String toString(){
+		return (this.getIdPersonne() + "§" + this.getNomPersonne() + "§" + this.getPassWord());
+	}
 	/**
 	 * Getter idPersonne
 	 * @return
