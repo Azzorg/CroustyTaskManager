@@ -31,10 +31,9 @@ public class Main extends Application {
 	public static ArrayList<Tache> listeTacheDonnees = new ArrayList<Tache>();
 
 	@SuppressWarnings("unchecked")
-	public static void ReceiveUserList(InputStream in) {
+	public static void ReceiveUserList(Client c) {
 		try {
-			ObjectInputStream userObj = new ObjectInputStream(in);
-			listePersonne = (((ArrayList<Personne>) userObj.readObject()));
+			listePersonne = (((ArrayList<Personne>) c.getObjIn().readObject()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -42,10 +41,9 @@ public class Main extends Application {
 		}
 	}
 
-	public static void ReceiveUser(InputStream in) {
+	public static void ReceiveUser(Client c) {
 		try {
-			ObjectInputStream userObj = new ObjectInputStream(in);
-			me = (((Personne) userObj.readObject()));
+			me = (Personne) c.getObjIn().readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,24 +52,22 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static void ReceiveListTacheAfaire(InputStream in){
+	public static void ReceiveListTacheAfaire(Client c) {
 		try {
-			ObjectInputStream userObj = new ObjectInputStream(in);
-			listeTacheAFaire = (((ArrayList<Tache>) userObj.readObject()));
+			listeTacheAFaire = (((ArrayList<Tache>) c.getObjIn().readObject()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static void ReceiveListTacheDonnees(InputStream in){
+	public static void ReceiveListTacheDonnees(Client c) {
 		try {
-			ObjectInputStream userObj = new ObjectInputStream(in);
-			listeTacheDonnees = (((ArrayList<Tache>) userObj.readObject()));
+			listeTacheDonnees = (((ArrayList<Tache>) c.getObjIn().readObject()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

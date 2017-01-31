@@ -123,7 +123,7 @@ public class ActiviteServeur extends Thread {
 	}
 
 	/**
-	 * Run method
+	 * Run method no parameters needed :)
 	 */
 	public void run() {
 		Connexion connexion;
@@ -142,8 +142,9 @@ public class ActiviteServeur extends Thread {
 			InputStream input = clientSocket.getInputStream();
 			BufferedReader in = new BufferedReader(new InputStreamReader(input));
 			PrintStream out = new PrintStream(output);
-			ObjectInputStream objIn;
-			ObjectOutputStream objOut;
+			ObjectOutputStream objOut = new ObjectOutputStream(output);
+			//objOut.flush();
+			ObjectInputStream objIn = new ObjectInputStream(input);
 
 			// Initialisation du parser XML pour le document user.xml
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -216,18 +217,26 @@ public class ActiviteServeur extends Thread {
 
 			goOn = false;
 			
-			
+			while(!in.readLine().equals("OK"))
+				System.out.println("Attente client");
 
 			// Récupération de tous les users dans le
 			List<Personne> listUser = handlerSAX.getListUser();
 			// Send the user list
 			SendUserList(listUser, output);
 			
+			System.out.println("envoi 1 fait : " + listUser.size());
+			
 			while(!in.readLine().equals("ME"))
 				System.out.println("Attente client");
+
+			//Thread.sleep(1000);
+			System.out.println("ME reçu");
 			
 			//Envoi de la personne connectée
 			SendUser(me, output);
+			
+			System.out.println("envoi 2 fait");
 			
 			while(!in.readLine().equals("OK"))
 				System.out.println("Attente client");
@@ -261,12 +270,9 @@ public class ActiviteServeur extends Thread {
 			while(!in.readLine().equals("OK"))
 				System.out.println("Attente client");
 			
-			objIn = new ObjectInputStream(input);
-			objOut = new ObjectOutputStream(output);
-			
-			
 			// Une fois la personne connectée
 			while(isConnected){
+				System.out.println("isConnected " + isConnected);
 				while(!in.readLine().equals("ACTION")){
 					System.out.println("Attente client");
 				}
@@ -286,15 +292,22 @@ public class ActiviteServeur extends Thread {
 					
 				// Envoie d'une liste de tache en fonction de l'utilisateur
 				case LIST_TASK:
+					System.out.println("list ache");
 					int idPers = Integer.parseInt(in.readLine());
+					System.out.println("Envoie liste des taches" + idPers);
 					//Envoie de la liste createur
 					objOut.writeObject(taskXML.getListTacheCreateurById(idPers));
+					System.out.println("Envoi OK 1 ");
 					objOut.flush();
+					System.out.println("Attente ///");
 					//Attente de la bonne réception du client
 					while(!in.readLine().equals("OK"))
 						System.out.println("Attente du client");
+					System.out.println("Attente OK");
 					//Attente de la liste affecte
+					System.out.println("Envpi 2 ");
 					objOut.writeObject(taskXML.getListTacheAffecteById(idPers));
+					System.out.println("envoi 2 ok");
 					objOut.flush();
 					break;
 					

@@ -9,4 +9,13 @@
 		<etat>A faire</etat>
 		<descriptif>Faire des trucs </descriptif>
 	</Tache>
+	<Tache>
+		<idTache>1</idTache>
+		<nomTache>truc</nomTache>
+		<createur>1</createur>
+		<affecte>0</affecte>
+		<priorite>Haute</priorite>
+		<etat>A faire</etat>
+		<descriptif>Faire des trucs </descriptif>
+	</Tache>
 </root>

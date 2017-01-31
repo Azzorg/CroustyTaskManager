@@ -19,22 +19,24 @@ public class Serveur {
 		ServerSocket welcomeSocket = null;
 
 		try {			
+			
 			welcomeSocket = new ServerSocket(serveur.PORT);
 			while (true) {
 				Socket aClient = welcomeSocket.accept(); // Attente du client
+				System.out.println("Nouveau thread");
 				new ActiviteServeur("act", aClient).start();
 			}
 
 		} catch (IOException /*| ParserConfigurationException | SAXException*/ e) {
 
-		} finally {
+		} /*finally {
 			try {
 				System.out.println("Fermeture socket serveur");
 				welcomeSocket.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-		}
+		}*/
 	}
 
 }

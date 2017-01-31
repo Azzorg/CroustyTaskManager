@@ -22,8 +22,8 @@ public class Client {
 	private OutputStream output;
 	private BufferedReader in;
 	private PrintStream out;
-	private ObjectInputStream objIn = null;
-	private ObjectOutputStream objOut = null;
+	private ObjectInputStream objIn;
+	private ObjectOutputStream objOut;
 	private static ArrayList<Personne> listUser = new ArrayList<>();
 
 	/**
@@ -35,8 +35,13 @@ public class Client {
 	@SuppressWarnings("unchecked")
 	public void ReceiveUserList(InputStream in) {
 		try {
+			System.out.println("Début receive user list");
 			ObjectInputStream userObj = new ObjectInputStream(in);
+
+			System.out.println("new");
 			setListUser(((ArrayList<Personne>) userObj.readObject()));
+			System.out.println("readobject");
+			userObj.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,6 +49,18 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Tache> ReceiveListTache(Client c) throws IOException, ClassNotFoundException{
+		ObjectInputStream userObj = new ObjectInputStream(c.getInput());
+		ArrayList<Tache> list = new ArrayList<Tache>();
+		System.out.println(c);
+		list = (ArrayList<Tache>) userObj.readObject();
+		userObj.close();
+		System.out.println("truc");
+		
+		return list;
 	}
 	
 	
@@ -61,6 +78,7 @@ public class Client {
 			ObjectOutputStream userTosend = new ObjectOutputStream(out);
 			userTosend.writeObject(p);
 			userTosend.flush();
+			userTosend.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,13 +118,14 @@ public class Client {
 	public void connexionServer() {
 		try {
 			aClient = new Socket("localhost", this.PORT);
-			this.input = aClient.getInputStream();
-			this.output = aClient.getOutputStream();
+			this.setInput(aClient.getInputStream());
+			this.setOutput(aClient.getOutputStream());
 			this.setIn(new BufferedReader(new InputStreamReader(input)));
-			this.out = new PrintStream(output);
-			/*this.objOut = new ObjectOutputStream(output);
-			getObjOut().flush();
-			this.objIn = new ObjectInputStream(input);*/
+			this.setOut(new PrintStream(output));
+			this.setObjOut(new ObjectOutputStream(output));
+			//getObjOut().flush();
+			this.setObjIn(new ObjectInputStream(input));
+			System.out.println("Connection");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,46 +141,6 @@ public class Client {
 
 	public void sendUserConnexionNew(String name, String pw) {
 		this.out.println("CONNEXION\nNEW\n" + name + "\n" + pw);
-	}
-
-	public static void main(String[] args) {
-		/*
-		 * Client client = new Client();
-		 * 
-		 * try { client.connexionServer();
-		 * 
-		 * // Réception de la liste des Users client.ReceiveUserList(client.in);
-		 * 
-		 * System.out.println("Affichage de tous les users ..."); for (Personne
-		 * user : listUser) { System.out.println("Id de la personne : " +
-		 * user.getIdPersonne()); System.out.println("Nom de la personne : " +
-		 * user.getNomPersonne()); }
-		 * 
-		 * Personne p = new Personne(4, "René", client.md5("troll"));
-		 * 
-		 * System.out.println("Envoi coordonnées nouveau user");
-		 * client.SendUser(p, client.out);
-		 * 
-		 * // Réception tache /* ObjectInputStream obj = new
-		 * ObjectInputStream(in);
-		 * 
-		 * Tache t1 = (Tache)obj.readObject();
-		 * 
-		 * //Affichage de la tache
-		 * 
-		 * System.out.println("Nom de la tâche : " + t1.getNomTache());
-		 * System.out.println("Personne créateur : " +
-		 * t1.getCreateur().getNomPersonne());
-		 * System.out.println("Personne affectée : " +
-		 * t1.getAffecte().getNomPersonne());
-		 * System.out.println("Descriptif de la tâche : \n" +
-		 * t1.getDescriptif());
-		 */
-
-		/*
-		 * } finally { try { aClient.close(); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 */
 	}
 
 	/**
@@ -206,6 +185,15 @@ public class Client {
 		return input;
 	}
 	
+	public void setInput(InputStream s){
+		this.input = s;
+	}
+	
+	public void setOutput(OutputStream s){
+		this.output = s;
+	}
+		
+	
 	public OutputStream getOutput(){
 		return output;
 	}
@@ -213,26 +201,25 @@ public class Client {
 	public PrintStream getOut(){
 		return out;
 	}
-
-
-
-	public ObjectInputStream getObjIn() {
-		return objIn;
+	
+	public void setOut(PrintStream s){
+		out = s;
 	}
 
-
+	public ObjectInputStream getObjIn() throws IOException {
+		//objIn.close();
+		objIn = new ObjectInputStream(input);
+		return objIn;
+	}
 
 	public void setObjIn(ObjectInputStream objIn) {
 		this.objIn = objIn;
 	}
 
-
-
-	public ObjectOutputStream getObjOut() {
+	public ObjectOutputStream getObjOut() throws IOException {
+		objOut = new ObjectOutputStream(getOutput());
 		return objOut;
 	}
-
-
 
 	public void setObjOut(ObjectOutputStream objOut) {
 		this.objOut = objOut;

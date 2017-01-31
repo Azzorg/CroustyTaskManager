@@ -1,9 +1,14 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+
+import javax.swing.plaf.SeparatorUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -106,7 +111,9 @@ public class Controller {
 	@FXML
 	// Document FXML chargé
 	protected void initialize() throws IOException {
-		client.connexionServer();
+		if(btn1 != null)
+			client.connexionServer();
+		
 		System.out.println("Initialisation pour les objects");
 		
 		// On est dans la page accueil
@@ -132,24 +139,22 @@ public class Controller {
 						created_task.getChildren().clear();
 
 						// Envoie de demande de liste des taches
+						client.setOutput(client.aClient.getOutputStream());
+						client.setOut(new PrintStream(client.getOutput()));
+						client.setInput(client.aClient.getInputStream());
+						client.setIn(new BufferedReader(new InputStreamReader(client.getInput())));
 						client.getOut().println("ACTION\nLIST_TASK\n" + pActual.getIdPersonne());
 						
-						System.out.println("Initialisation pour recevoir les objets");
-						
-						client.setObjOut(new ObjectOutputStream(client.getOutput()));
-						client.getObjOut().flush();
-						client.setObjIn(new ObjectInputStream(client.getInput()));
-						
 						System.out.println("Initialisation faite");
-
+						
 						// Réception de la liste de tache données
-						Main.listeTacheDonnees = (ArrayList<Tache>) client.getObjIn().readObject();
+						Main.listeTacheDonnees = client.ReceiveListTache(client);
 						System.out.println(Main.listeTacheDonnees);
 
 						client.getOut().println("OK");
 
 						// Réception de la liste de tache à faire
-						Main.listeTacheAFaire = (ArrayList<Tache>) client.getObjIn().readObject();
+						Main.listeTacheAFaire = client.ReceiveListTache(client);
 						System.out.println(Main.listeTacheAFaire);
 
 					} catch (ClassNotFoundException e1) {
@@ -307,7 +312,7 @@ public class Controller {
 	}
 
 	@FXML
-	private void handleButtonAction(ActionEvent event) throws IOException {
+	private void handleButtonAction(ActionEvent event) throws IOException, InterruptedException {
 
 		// Button connect
 		if (event.getSource() == btn1) {
@@ -322,27 +327,33 @@ public class Controller {
 
 			System.out.println("Réponse connexion");
 			Connex connex = Connex.valueOf(client.getIn().readLine());
+			
+			client.getOut().println("OK");
 
 			switch (connex) {
 			// Le nom et le mot de passe corresponde
 			case OK:
-				Main.ReceiveUserList(client.getInput());
+				Main.ReceiveUserList(client);
+				System.out.println("receive 1 ok : " + Main.listePersonne.size());
 				client.getOut().println("ME");
-				Main.ReceiveUser(client.getInput());
+				System.out.println("ME envoyé");
+				Main.ReceiveUser(client);
+				Thread.sleep(10);
+				System.out.println("Receive 2 ok");
 				client.getOut().println("OK");
-
+				System.out.println("Recu ok");
 				// Réception de la liste à faire par me
 				while (!client.getIn().readLine().equals("LISTEAFAIRE"))
 					System.out.println("Attente du serveur");
 				if (client.getIn().equals("ENVOI"))
-					Main.ReceiveListTacheAfaire(client.getInput());
+					Main.ReceiveListTacheAfaire(client);
 				client.getOut().println("OK");
 
 				// Réception de la liste des taches créées par me
 				while (!client.getIn().readLine().equals("LISTECREEE"))
 					System.out.println("Attente du serveur");
 				if (client.getIn().equals("ENVOI"))
-					Main.ReceiveListTacheDonnees(client.getInput());
+					Main.ReceiveListTacheDonnees(client);
 				client.getOut().println("OK");
 
 				Stage stage = null;
@@ -435,23 +446,23 @@ public class Controller {
 				switch (connex) {
 				// Le nom et le mot de passe corresponde
 				case OK:
-					Main.ReceiveUserList(client.getInput());
+					Main.ReceiveUserList(client);
 					client.getOut().println("ME");
-					Main.ReceiveUser(client.getInput());
+					Main.ReceiveUser(client);
 					client.getOut().println("OK");
 
 					// Réception de la liste à faire par me
 					while (!client.getIn().readLine().equals("LISTEAFAIRE"))
 						System.out.println("Attente du serveur");
 					if (client.getIn().equals("ENVOI"))
-						Main.ReceiveListTacheAfaire(client.getInput());
+						Main.ReceiveListTacheAfaire(client);
 					client.getOut().println("OK");
 
 					// Réception de la liste des taches créées par me
 					while (!client.getIn().readLine().equals("LISTECREEE"))
 						System.out.println("Attente du serveur");
 					if (client.getIn().equals("ENVOI"))
-						Main.ReceiveListTacheDonnees(client.getInput());
+						Main.ReceiveListTacheDonnees(client);
 					client.getOut().println("OK");
 
 					Stage stage = null;
