@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -23,7 +21,7 @@ public class Client {
 	private BufferedReader in;
 	private PrintStream out;
 	private Personne me = new Personne();
-	
+
 	public ArrayList<Personne> listPersonne = new ArrayList<Personne>();
 	public ArrayList<Tache> listeTacheAFaire = new ArrayList<Tache>();
 	public ArrayList<Tache> listeTacheDonnees = new ArrayList<Tache>();
@@ -35,22 +33,24 @@ public class Client {
 	 *            : Client
 	 */
 	public void ReceiveUserList() {
+		System.out.println("Réception de la list de user");
 		String rec;
 		Personne act;
-		String [] sp = null;
+		String[] sp = null;
 		Personne p = null;
 		this.listPersonne.clear();
 		try {
-			while((rec = this.getIn().readLine()) != null){
-				
+			while (!(rec = this.getIn().readLine()).equals("END")) {
+
 				System.out.println(rec);
 				p = new Personne();
 				sp = rec.split("§");
 				this.listPersonne.add(p);
-				act = this.listPersonne.get(this.listPersonne.size()-1);
+				act = this.listPersonne.get(this.listPersonne.size() - 1);
 				act.setIdPersonne(Integer.parseInt(sp[0]));
 				act.setNomPersonne(sp[1]);
 				act.setPassWord(sp[2]);
+				System.out.println("nom personne : " + act.getNomPersonne());
 			}
 			System.out.println("list user : " + listPersonne.size());
 		} catch (IOException e) {
@@ -58,31 +58,33 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public ArrayList<Tache> ReceiveListTache() {
 		ArrayList<Tache> list = new ArrayList<Tache>();
 		Tache t = null;
 		Tache act = null;
-		String [] sp = null;
+		String[] sp = null;
 		String rec;
 		try {
-			while((rec = this.getIn().readLine()) != null){
-				t = new Tache();
-				sp = rec.split("§");
-				list.add(t);
-				act = list.get(list.size()-1);
-				act.setIdTache(Integer.parseInt(sp[0]));
-				act.setNomTache(sp[1]);
-				act.setEtat(sp[2]);
-				act.setPriorite(sp[3]);
-				act.setDescriptif(sp[4]);
-				act.getAffecte().setIdPersonne(Integer.parseInt(sp[5]));
-				act.getAffecte().setNomPersonne(sp[6]);
-				act.getAffecte().setPassWord(sp[7]);
-				act.getCreateur().setIdPersonne(Integer.parseInt(sp[8]));
-				act.getCreateur().setNomPersonne(sp[9]);
-				act.getCreateur().setPassWord(sp[9]);
+			while (!(rec = this.getIn().readLine()).equals("END")) {
+				System.out.println("Réception tache : " + rec);
+				if(!rec.equals("NULL")){
+					t = new Tache();
+					sp = rec.split("§");
+					list.add(t);
+					act = list.get(list.size() - 1);
+					act.setIdTache(Integer.parseInt(sp[0]));
+					act.setNomTache(sp[1]);
+					act.setEtat(sp[2]);
+					act.setPriorite(sp[3]);
+					act.setDescriptif(sp[4]);
+					act.getAffecte().setIdPersonne(Integer.parseInt(sp[5]));
+					act.getAffecte().setNomPersonne(sp[6]);
+					act.getAffecte().setPassWord(sp[7]);
+					act.getCreateur().setIdPersonne(Integer.parseInt(sp[8]));
+					act.getCreateur().setNomPersonne(sp[9]);
+					act.getCreateur().setPassWord(sp[10]);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -90,8 +92,6 @@ public class Client {
 		}
 		return list;
 	}
-	
-	
 
 	/**
 	 * To send a user to the server
@@ -197,29 +197,28 @@ public class Client {
 	public void setListUser(ArrayList<Personne> listUser) {
 		this.listPersonne = listUser;
 	}
-	
-	public InputStream getInput(){
+
+	public InputStream getInput() {
 		return input;
 	}
-	
-	public void setInput(InputStream s){
+
+	public void setInput(InputStream s) {
 		this.input = s;
 	}
-	
-	public void setOutput(OutputStream s){
+
+	public void setOutput(OutputStream s) {
 		this.output = s;
 	}
-		
-	
-	public OutputStream getOutput(){
+
+	public OutputStream getOutput() {
 		return output;
 	}
-	
-	public PrintStream getOut(){
+
+	public PrintStream getOut() {
 		return out;
 	}
-	
-	public void setOut(PrintStream s){
+
+	public void setOut(PrintStream s) {
 		out = s;
 	}
 

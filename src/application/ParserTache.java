@@ -8,7 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class ParserTache extends DefaultHandler {
-	private List<Tache> listTache = new ArrayList<Tache>();
+	private ArrayList<Tache> listTache = new ArrayList<Tache>();
 	private Tache task;
 	private String balise;
 	private ParserUser parser;
@@ -32,7 +32,7 @@ public class ParserTache extends DefaultHandler {
 	 * Return la liste des taches
 	 * @return
 	 */
-	public List<Tache> getListTache() {
+	public ArrayList<Tache> getListTache() {
 		return listTache;
 	}
 	
@@ -43,15 +43,18 @@ public class ParserTache extends DefaultHandler {
 	 */
 	public ArrayList<Tache> getListTacheCreateurById(int id){
 		ArrayList<Tache> listTache =  new ArrayList<>();
-		List<Tache> list = getListTache();
+		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
+		
+		System.out.println("list In Parser : " + list);
+		System.out.println("listTache In Parser : " + listTache);
 		
 		for(Tache task : list){
 			if(task.getCreateur().getIdPersonne() == id)
 				listTache.add(task);
 		}
 		
-		if(listTache.size() == 0)
-			return null;
+
+		System.out.println("listTache In Parser 2 : " + listTache);
 		
 		return listTache;
 	}
@@ -62,8 +65,8 @@ public class ParserTache extends DefaultHandler {
 	 * @return
 	 */
 	public List<Tache> getListTacheCreateurByName(String name){
-		List<Tache> listTache = new ArrayList<>();
-		List<Tache> list = getListTache();
+		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getCreateur().getNomPersonne().equals(name))
@@ -78,9 +81,9 @@ public class ParserTache extends DefaultHandler {
 	 * @param id
 	 * @return
 	 */
-	public List<Tache> getListTacheAffecteById(int id){
-		List<Tache> listTache = new ArrayList<>();
-		List<Tache> list = getListTache();
+	public ArrayList<Tache> getListTacheAffecteById(int id){
+		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getAffecte().getIdPersonne() == id)
@@ -95,9 +98,9 @@ public class ParserTache extends DefaultHandler {
 	 * @param name
 	 * @return
 	 */
-	public List<Tache> getListTacheAffecteByName(String name){
-		List<Tache> listTache = new ArrayList<>();
-		List<Tache> list = getListTache();
+	public ArrayList<Tache> getListTacheAffecteByName(String name){
+		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getAffecte().getNomPersonne().equals(name))
@@ -115,6 +118,7 @@ public class ParserTache extends DefaultHandler {
 	 * @param attributes
 	 * @throws SAXException
 	 */
+	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (localName.equals("Tache"))
 			task = new Tache();
@@ -129,9 +133,12 @@ public class ParserTache extends DefaultHandler {
 	 * @param qName
 	 * @throws SAXException
 	 */
+	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (balise.equals("Tache"))
-			listTache.add(task);
+		if (balise.equals("Tache")){
+			
+		}
+			
 	}
 
 	/**
@@ -141,11 +148,14 @@ public class ParserTache extends DefaultHandler {
 	 * @param length
 	 * @throws SAXException
 	 */
+	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 
 		String s = new String(ch, start, length).trim();
 		if (s.trim().isEmpty())
 			return;
+		
+		System.out.println("balise : " + balise +" et str : " + s);
 
 		// Récupération de l'id de la tache
 		if (balise.equals("idTache"))
@@ -172,7 +182,10 @@ public class ParserTache extends DefaultHandler {
 			task.setEtat(s);
 
 		// Récupération du descriptif de la tache
-		if (balise.equals("descriptif"))
+		if (balise.equals("descriptif")){
 			task.setDescriptif(s);
+			listTache.add(task);
+			System.out.println("tache : " + task);
+		}
 	}
 }

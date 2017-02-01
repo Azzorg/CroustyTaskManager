@@ -14,10 +14,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public static Client client;
+
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			client = new Client();
 			AnchorPane accueil = (AnchorPane) FXMLLoader.load(Main.class.getResource("../Interface/login.fxml"));
 			Scene scene = new Scene(accueil);
 			scene.setRoot(accueil);
@@ -32,6 +35,7 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		
 		launch(args);
 	}
 }

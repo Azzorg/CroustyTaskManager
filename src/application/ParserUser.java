@@ -10,19 +10,19 @@ import org.xml.sax.SAXException;
 
 public class ParserUser extends DefaultHandler {
 
-	private List<Personne> listUser = new ArrayList<Personne>();
+	private ArrayList<Personne> listUser = new ArrayList<Personne>();
 
 	private Personne user;
 	private boolean isIdUser = false;
 	private boolean isNomUser = false;
 	private boolean isPassword = false;
 
-	public List<Personne> getListUser() {
+	public ArrayList<Personne> getListUser() {
 		return listUser;
 	}
 	
 	public boolean nameExist(String nom){
-		List<Personne> list = getListUser();
+		ArrayList<Personne> list = (ArrayList<Personne>) getListUser().clone();
 		for(Personne p : list){
 			if(p.getNomPersonne().equals(nom))
 				return true;
@@ -31,7 +31,7 @@ public class ParserUser extends DefaultHandler {
 	}
 	
 	public boolean correspondanceNamePassword(String name, String pass){
-		List<Personne> list = getListUser();
+		ArrayList<Personne> list = (ArrayList<Personne>) getListUser().clone();
 		for(Personne p : list){
 			if(p.getNomPersonne().equals(name) && p.getPassWord().equals(pass))
 				return true;
@@ -40,7 +40,7 @@ public class ParserUser extends DefaultHandler {
 	}
 	
 	public Personne getPersonneById(int id){
-		List<Personne> list = getListUser();
+		ArrayList<Personne> list = (ArrayList<Personne>) getListUser().clone();
 		for(Personne p : list){
 			if(p.getIdPersonne() == id)
 				return p;
@@ -49,7 +49,7 @@ public class ParserUser extends DefaultHandler {
 	}
 	
 	public Personne getPersonneByName(String name){
-		List<Personne> list = getListUser();
+		ArrayList<Personne> list = (ArrayList<Personne>) getListUser().clone();
 		for(Personne p : list){
 			if(p.getNomPersonne().equals(name))
 				return p;
