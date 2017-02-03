@@ -17,6 +17,7 @@ public class ParserTache extends DefaultHandler {
 	 * Constructeur vide
 	 */
 	public ParserTache() {
+		
 	}
 
 	/**
