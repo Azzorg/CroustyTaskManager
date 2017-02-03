@@ -340,6 +340,8 @@ public class Controller {
 				System.out.println("Receive 2 ok");
 				Main.client.getOut().println("OK");
 				System.out.println("Recu ok");
+				
+				
 				// Réception de la liste à faire par me
 				while (!Main.client.getIn().readLine().equals("LISTEAFAIRE"))
 					System.out.println("Attente du serveur");

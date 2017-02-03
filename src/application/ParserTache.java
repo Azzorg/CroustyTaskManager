@@ -1,7 +1,12 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -40,23 +45,42 @@ public class ParserTache extends DefaultHandler {
 	 * Retourne la liste de toutes les tache créée par une personne (id)
 	 * @param id
 	 * @return
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
 	 */
-	public ArrayList<Tache> getListTacheCreateurById(int id){
-		ArrayList<Tache> listTache =  new ArrayList<>();
+	public ArrayList<Tache> getListTacheCreateurById(int id) throws SAXException, IOException, ParserConfigurationException{
+		/*SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		SAXParser sax = factory.newSAXParser();
+
+		ParserUser handlerSAX = new ParserUser();
+		sax.parse("src/user.xml", handlerSAX);
+		
+		SAXParserFactory factoryTask = SAXParserFactory.newInstance();
+		factoryTask.setNamespaceAware(true);
+		SAXParser saxTask = factoryTask.newSAXParser();
+		
+		ParserTache p = new ParserTache(handlerSAX);
+		saxTask.parse("src/tache.xml", p);*/
+		
+		
+		
+		ArrayList<Tache> listT =  new ArrayList<>();
 		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		System.out.println("list In Parser : " + list);
-		System.out.println("listTache In Parser : " + listTache);
+		System.out.println("listTache In Parser : " + listT);
 		
 		for(Tache task : list){
 			if(task.getCreateur().getIdPersonne() == id)
-				listTache.add(task);
+				listT.add(task);
 		}
 		
 
-		System.out.println("listTache In Parser 2 : " + listTache);
+		System.out.println("listTache In Parser 2 : " + listT);
 		
-		return listTache;
+		return listT;
 	}
 	
 	/**
@@ -65,15 +89,15 @@ public class ParserTache extends DefaultHandler {
 	 * @return
 	 */
 	public List<Tache> getListTacheCreateurByName(String name){
-		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> listT = new ArrayList<>();
 		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getCreateur().getNomPersonne().equals(name))
-				listTache.add(task);
+				listT.add(task);
 		}
 		
-		return listTache;
+		return listT;
 	}
 	
 	/**
@@ -82,15 +106,15 @@ public class ParserTache extends DefaultHandler {
 	 * @return
 	 */
 	public ArrayList<Tache> getListTacheAffecteById(int id){
-		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> listT = new ArrayList<>();
 		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getAffecte().getIdPersonne() == id)
-				listTache.add(task);
+				listT.add(task);
 		}
 		
-		return listTache;
+		return listT;
 	}
 	
 	/**
@@ -99,15 +123,15 @@ public class ParserTache extends DefaultHandler {
 	 * @return
 	 */
 	public ArrayList<Tache> getListTacheAffecteByName(String name){
-		ArrayList<Tache> listTache = new ArrayList<>();
+		ArrayList<Tache> listT = new ArrayList<>();
 		ArrayList<Tache> list = (ArrayList<Tache>) getListTache().clone();
 		
 		for(Tache task : list){
 			if(task.getAffecte().getNomPersonne().equals(name))
-				listTache.add(task);
+				listT.add(task);
 		}
 		
-		return listTache;
+		return listT;
 	}
 	
 	/**
