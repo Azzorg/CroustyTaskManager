@@ -79,7 +79,7 @@ public class ActiviteServeur extends Thread {
 		out.println("END");
 	}
 	
-	public void SendListTaskGiven(int id, PrintStream out){
+	public void SendListTaskGiven(int id, PrintStream out) throws SAXException, IOException, ParserConfigurationException{
 		ParserTache parser = new ParserTache();
 		ArrayList <Tache> list = (ArrayList<Tache>) parser.getListTacheCreateurById(id).clone();
 		System.out.println("list " + list);
@@ -302,6 +302,9 @@ public class ActiviteServeur extends Thread {
 						System.out.println("Attente du client");
 					System.out.println("Attente OK");
 					
+					
+					handlerSAX = new ParserUser();
+					sax.parse("src/user.xml", handlerSAX);
 					//Attente de la liste affecte
 					System.out.println("Envpi 2 ");
 					SendListTaskToDo(idPers, out);
